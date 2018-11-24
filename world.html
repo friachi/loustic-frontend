@@ -9,7 +9,8 @@
 
 <div id="container" style="position: relative; width: 1500px; height: 1000px;"></div>
 <script>
-    ar series = [
+    // example data from server
+    var series = [
         ["BLR",75],["BLZ",43],["RUS",50],["RWA",88],["SRB",21],["TLS",43],
         ["REU",21],["TKM",19],["TJK",60],["ROU",4],["TKL",44],["GNB",38],
         ["GUM",67],["GTM",2],["SGS",95],["GRC",60],["GNQ",57],["GLP",53],
@@ -49,23 +50,24 @@
                 value = item[1];
         dataset[iso] = { numberOfThings: value, fillColor: paletteScale(value) };
     });
-
-    
-    
-    var map = new Datamap({
-        element: document.getElementById('container'),
+    // render map
+    new Datamap({
+        element: document.getElementById('container1'),
+        projection: 'mercator', // big world map
+        // countries don't listed in dataset will be painted with this color
+        fills: { defaultFill: '#F5F5F5' },
         data: dataset,
-        fills: {
-            defaultFill: 'rgb(255, 230, 230)' // Any hex, color name or rgb/rgba value
-            
-        },
         geographyConfig: {
-                popupOnHover: true,
-                highlightOnHover: true,
-                borderColor: '#ff6666',
-                borderWidth: 0.5,
-                // show desired information in tooltip
-                popupTemplate: function(geo, data) {
+            borderColor: '#DEDEDE',
+            highlightBorderWidth: 2,
+            // don't change color on mouse hover
+            highlightFillColor: function(geo) {
+                return geo['fillColor'] || '#F5F5F5';
+            },
+            // only change border
+            highlightBorderColor: '#B7B7B7',
+            // show desired information in tooltip
+            popupTemplate: function(geo, data) {
                 // don't show tooltip if country don't present in dataset
                 if (!data) { return ; }
                 // tooltip content
@@ -74,7 +76,7 @@
                     '<br>Count: <strong>', data.numberOfThings, '</strong>',
                     '</div>'].join('');
             }
-       }
+        }
     });
 </script>
         
