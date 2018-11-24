@@ -54,9 +54,6 @@
         height = 300,
         translate = [width / 2, height / 2];
     var projections = [
-        {name: 'azimuthalEqualArea', fn: d3.geo.azimuthalEqualArea()
-                .scale(50)
-                .translate(translate)},
         {name: 'conicEquidistant', fn: d3.geo.conicEquidistant()
                 .scale(35)
                 .translate(translate)},
