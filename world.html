@@ -7,7 +7,7 @@
     </head>
     <body>
 
-<div id="container1" style="border:1px dotted blue; width: 700px; height: 475px; position: relative;"></div>
+<div id="containerMap" style="position: relative; width: 1500px; height: 1200px;"></div>
 <script>
     // example data from server
     var series = [
@@ -42,7 +42,7 @@
     // color can be whatever you wish
     var paletteScale = d3.scale.linear()
             .domain([minValue,maxValue])
-            .range(["#EFEFFF","#02386F"]); // blue color
+            .range(["#ffcccc","#e60000"]); // blue color
     // fill dataset in appropriate format
     series.forEach(function(item){ //
         // item example value ["USA", 70]
@@ -52,10 +52,10 @@
     });
     // render map
     new Datamap({
-        element: document.getElementById('container1'),
+        element: document.getElementById('containerMap'),
         projection: 'mercator', // big world map
         // countries don't listed in dataset will be painted with this color
-        fills: { defaultFill: '#F5F5F5' },
+        fills: { defaultFill: '#ffffff' },
         data: dataset,
         geographyConfig: {
             borderColor: '#DEDEDE',
@@ -73,7 +73,7 @@
                 // tooltip content
                 return ['<div class="hoverinfo">',
                     '<strong>', geo.properties.name, '</strong>',
-                    '<br>Count: <strong>', data.numberOfThings, '</strong>',
+                    '<br>Sessions: <strong>', data.numberOfThings, '</strong>',
                     '</div>'].join('');
             }
         }
