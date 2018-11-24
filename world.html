@@ -20,7 +20,13 @@
                 highlightOnHover: true,
                 borderColor: '#ff6666',
                 borderWidth: 0.5,
+                popupTemplate: function(geo, data) {
+                return ['<div class="hoverinfo"><strong>',
+                        'Number of things in ' + geo.properties.name,
+                        ': ' + data.numberOfThings,
+                        '</strong></div>'].join('');
             }
+       }
     });
 </script>
         
