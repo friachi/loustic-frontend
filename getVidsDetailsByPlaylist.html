@@ -46,7 +46,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
   var requestOptions = {
     playlistId: playlistId,
     part: 'snippet',
-    maxResults: 10
+    maxResults: 50
   };
   if (pageToken) {
     requestOptions.pageToken = pageToken;
