@@ -51,7 +51,7 @@
         dataset[iso] = { numberOfThings: value, fillColor: paletteScale(value) };
     });
     // render map
-    new Datamap({
+    var map = new Datamap({
         element: document.getElementById('containerMap'),
         projection: 'mercator', // big world map
         // countries don't listed in dataset will be painted with this color
