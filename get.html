@@ -19,7 +19,7 @@ var apiKey='AIzaSyBF_Fv2DtGxLF_4rw_kUeMjwvPtekxau_M';
 var playlistId='UUHziILhb2V5ahNIMSmaOAbQ';
 var videos = {};
 var videosList = [];
-var totalVideos = 0;
+var totalVideos;
 
 
 // After the API loads, call a function to get the uploads playlist ID.
@@ -33,7 +33,6 @@ function handleAPILoaded() {
           //build respose object
           videos.totalVideos = totalVideos;
           videos.videoIds = videosList;
-          console.log(videos.totalVideos);
         });
 }
 
