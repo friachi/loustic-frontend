@@ -11,7 +11,7 @@
         <button id="prev-button" onclick="previousPage()">Previous</button>
     </label>   
     <div id="container">
-      <h1>Search Results</h1>
+      <h1>Results</h1>
       <ul id="video-container"></ul>
     </div>           
   <script>
@@ -19,6 +19,7 @@
 var playlistId, nextPageToken, prevPageToken;
 var channelId='UCHziILhb2V5ahNIMSmaOAbQ';
 var apiKey='AIzaSyBF_Fv2DtGxLF_4rw_kUeMjwvPtekxau_M'
+var vs;
 
 // After the API loads, call a function to get the uploads playlist ID.
 function handleAPILoaded() {
@@ -77,6 +78,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
 
 // Create a listing for a video.
 function displayResult(videoSnippet) {
+  vs = videoSnippet;
   var title = videoSnippet.title;
   var videoId = videoSnippet.resourceId.videoId;
   $('#video-container').append('<p>' + title + ' - ' + videoId + '</p>');
