@@ -27,7 +27,7 @@ function handleAPILoaded() {
         gapi.client.setApiKey(apiKey);
         
         gapi.client.load('youtube', 'v3', function() {
-          totalVideos = requestVideoPlaylist(playlistId);
+          requestVideoPlaylist(playlistId);
           
           //get all pages
           while(nextPageToken) { 
@@ -58,7 +58,6 @@ function requestVideoPlaylist(playlistId, pageToken) {
     nextPageToken = response.result.nextPageToken;
     prevPageToken = response.result.prevPageToken;
     totalVideos = response.result.pageInfo.totalResults;
-    console.log(totalVideos);
 
 
     var playlistItems = response.result.items;
@@ -71,7 +70,6 @@ function requestVideoPlaylist(playlistId, pageToken) {
       $('#video-container').html('Sorry you have no uploaded videos');
     }
   });
-  return totalVideos;
 }
 
 // Retrieve the next page of videos in the playlist.
