@@ -29,10 +29,6 @@ function handleAPILoaded() {
         gapi.client.load('youtube', 'v3', function() {
           requestVideoPlaylist(playlistId);
           
-          //get all pages
-          while(nextPageToken) { 
-            nextPage();
-          }
 
           //build respose object
           videos.totalVideos = totalVideos;
