@@ -54,7 +54,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
   }
   var request = gapi.client.youtube.playlistItems.list(requestOptions);
   request.execute(function(response) {
-
+  console.log(response);
     nextPageToken = response.result.nextPageToken;
     prevPageToken = response.result.prevPageToken;
     totalVideos = response.result.pageInfo.totalResults;
