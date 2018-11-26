@@ -26,11 +26,7 @@ function sendRequest() {
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', function() {
           requestVideoPlaylist(playlistId);
-          console.log('inside load');
-        });
-        console.log('outside load');
-            
-            
+        });      
         
 }
 
@@ -61,7 +57,8 @@ function requestVideoPlaylist(playlistId, pageToken) {
      //build object
       videos.totalVideos = totalVideos;
       videos.videoIds = videosList;
-     
+      console.log("nextPageToken: " + nextPageToken);
+      if(nextPageToken) { nextPage(); }
     } 
     else {
       $('#video-container').html('Sorry you have no uploaded videos');
