@@ -66,7 +66,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
       console.log("Done: reading all pages, reading videos");
        
       var requestOptions = {
-        id: videos.videoIds[0],
+        id: videos.videoIds.join(","),
         part: 'statistics,snippet',
         fields: 'items(statistics,snippet(title,description,tags,publishedAt,thumbnails(standard)))'
        };
