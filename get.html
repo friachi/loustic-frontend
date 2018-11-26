@@ -65,14 +65,13 @@ function requestVideoPlaylist(playlistId, pageToken) {
      {
       console.log("Done: reading all pages, reading videos");
       var allvideos = videosList.join(",");
-      allvideos = allvideos.replace(/"/g, "'");
       //console.log(allvideos);
       var requestOptions = {
         id: allvideos,
         part: 'statistics,snippet',
         fields: 'items(statistics,snippet(title,description,tags,publishedAt,thumbnails(standard)))'
        };
-       console.log(requestOptions);
+      
        var request = gapi.client.youtube.videos.list(requestOptions);
        request.then(function(response) {
        console.log(response);
