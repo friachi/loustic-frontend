@@ -58,9 +58,6 @@ function requestVideoPlaylist(playlistId, pageToken) {
         videosList.push(videoId);
       });
       videos.totalVideos = totalVideos;
-      while(nextPageToken){
-       nextPage();
-      }
     } 
     else {
       $('#video-container').html('Sorry you have no uploaded videos');
