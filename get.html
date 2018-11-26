@@ -26,8 +26,9 @@ function sendRequest() {
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', function() {
           requestVideoPlaylist(playlistId);
+          console.log('inside load');
         });
-
+        console.log('outside load');
             
             
         
@@ -46,7 +47,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
   }
   var request = gapi.client.youtube.playlistItems.list(requestOptions);
   request.then(function(response) {
-    console.log(response);
+    console.log('inside');
     nextPageToken = response.result.nextPageToken;
     prevPageToken = response.result.prevPageToken;
     totalVideos = response.result.pageInfo.totalResults;
@@ -55,11 +56,11 @@ function requestVideoPlaylist(playlistId, pageToken) {
     if (playlistItems) {
       $.each(playlistItems, function(index, item) {
         var videoId = item.snippet.resourceId.videoId;
-        videos.videoIds.push(videoId);
+        videosList.push(videoId);
       });
      //build object
       videos.totalVideos = totalVideos;
-      //videos.videoIds = videosList;
+      videos.videoIds = videosList;
      
     } 
     else {
