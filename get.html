@@ -58,24 +58,38 @@ function requestVideoPlaylist(playlistId, pageToken) {
       videos.totalVideos = totalVideos;
       videos.videoIds = videosList;
      //read next page if any 
-      if(nextPageToken) { nextPage(); }
-     //when no more pages
-     console.log("nextPage:" + nextPageToken);
+      if(nextPageToken) { 
+      	nextPage(); 
+      }
+
+     //when no more pages, then proceed in getting all videos details
      if(!nextPageToken)
      {
-      console.log("Done: reading all pages, reading videos");
-      var allvideos = videosList.join(",");
-      //console.log(allvideos);
-      var requestOptions = {
-        id: allvideos,
-        part: 'statistics,snippet',
-        fields: 'items(statistics,snippet(title,description,tags,publishedAt,thumbnails(standard)))'
-       };
-      
-       var request = gapi.client.youtube.videos.list(requestOptions);
-       request.then(function(response) {
-       console.log(response);
-       });
+      console.log("Done: reading all pages. Reading videos now...");
+      //paginate videos per request (API accepts max 50 videos per request, if more: 400 error code is returned )
+      var pageSize = 50;
+	  var totalItems = videosList.length;
+	  var nbOfPages = Math.ceil(totalItems/pageSize);
+	  var startIndex = 0;
+	  var endIndex = startIndex;
+
+	  var i;
+	  for (i = 0; i < nbOfPages; i++) 
+	  { 
+		  startIndex = i * pageSize;
+		  endIndex = startIndex + pageSize;
+		  if(i == (nbOfPages-1))
+		  {
+		    endIndex = totalItems;
+		  }
+		  
+		  var pageItems = videosList.slice(startIndex,endIndex).join(",");
+		  console.log("page: " + i);
+		  console.log(pageItems);
+		  getVideosDetails(pageItems);
+	  }
+
+
      }
     } 
     else {
@@ -92,6 +106,22 @@ function nextPage() {
 // Retrieve the previous page of videos in the playlist.
 function previousPage() {
   requestVideoPlaylist(playlistId, prevPageToken);
+}
+
+// Retrieve the next page of videos in the playlist.
+function getVideosDetails(viedoIds) {
+	//console.log(allvideos);
+      var requestOptions = {
+        id: allvideos,
+        part: 'statistics,snippet',
+        fields: 'items(statistics,snippet(title,description,tags,publishedAt,thumbnails(standard)))'
+       };
+      
+       var request = gapi.client.youtube.videos.list(requestOptions);
+       request.then(function(response) {
+       console.log(response);
+       });
+  
 }
 </script> 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
