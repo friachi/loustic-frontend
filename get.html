@@ -121,7 +121,10 @@ function getVideosDetails(viedoIds) {
       
        var request = gapi.client.youtube.videos.list(requestOptions);
        request.then(function(response) {
-       videosDetails.results.push(response.result.items);
+       
+	       $.each(response.result.items, function(index, item) {
+	        videosList.push(item[index]);
+      		});
        });
   
 }
