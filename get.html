@@ -24,7 +24,7 @@ var totalVideos;
 // After the API loads, call a function to get the uploads playlist ID.
 function sendRequest() {
         gapi.client.setApiKey(apiKey);
-        var req1 = gapi.client.load('youtube', 'v3', function() {
+        gapi.client.load('youtube', 'v3', function() {
           requestVideoPlaylist(playlistId);
         });
 
@@ -57,7 +57,10 @@ function requestVideoPlaylist(playlistId, pageToken) {
         var videoId = item.snippet.resourceId.videoId;
         videosList.push(videoId);
       });
+     //build object
       videos.totalVideos = totalVideos;
+      videos.videoIds = videosList;
+     
     } 
     else {
       $('#video-container').html('Sorry you have no uploaded videos');
