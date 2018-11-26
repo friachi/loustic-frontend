@@ -25,13 +25,14 @@ var totalVideos;
 function sendRequest() {
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', function() {
-          requestVideoPlaylist(playlistId);
+          requestVideoPlaylist(playlistId)
+           .then(function(resp) {
+            videos.totalVideos = totalVideos;
+            videos.videoIds = videosList;
+            console.log("count outside " + totalVideos);
+            });
+        });
         
-        }).then(function(resp) {
-          videos.totalVideos = totalVideos;
-          videos.videoIds = videosList;
-          console.log("count outside " + totalVideos);
-          });
 }
 
 // Retrieve the list of videos in the specified playlist.
