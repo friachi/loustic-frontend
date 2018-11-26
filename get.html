@@ -55,11 +55,11 @@ function requestVideoPlaylist(playlistId, pageToken) {
     if (playlistItems) {
       $.each(playlistItems, function(index, item) {
         var videoId = item.snippet.resourceId.videoId;
-        videosList.push(videoId);
+        videos.videoIds.push(videoId);
       });
      //build object
       videos.totalVideos = totalVideos;
-      videos.videoIds = videosList;
+      //videos.videoIds = videosList;
      
     } 
     else {
