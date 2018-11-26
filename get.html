@@ -27,11 +27,11 @@ function sendRequest() {
         var req1 = gapi.client.load('youtube', 'v3', function() {
           requestVideoPlaylist(playlistId);
         });
-        req1.then(function(resp) {
+
             videos.totalVideos = totalVideos;
             videos.videoIds = videosList;
             console.log("count outside " + totalVideos);
-            });
+            
         
 }
 
@@ -47,7 +47,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
     requestOptions.pageToken = pageToken;
   }
   var request = gapi.client.youtube.playlistItems.list(requestOptions);
-  request.execute(function(response) {
+  request.then(function(response) {
     console.log(response);
     nextPageToken = response.result.nextPageToken;
     prevPageToken = response.result.prevPageToken;
