@@ -26,11 +26,12 @@ function sendRequest() {
         gapi.client.setApiKey(apiKey);
         var req1 = gapi.client.load('youtube', 'v3', function() {
           requestVideoPlaylist(playlistId);
+          videos.totalVideos = totalVideos;
+          videos.videoIds = videosList;
+          console.log("count outside " + totalVideos);
         });
 
-            videos.totalVideos = totalVideos;
-            videos.videoIds = videosList;
-            console.log("count outside " + totalVideos);
+            
             
         
 }
