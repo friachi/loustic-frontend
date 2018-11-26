@@ -65,7 +65,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
        console.log("Done: reading all pages, reading videos");
        var requestOptions = {
         id: videos.videoIds[0],
-        part: ['statistics' 'snippet']
+        part: ['statistics','snippet']
        };
 
        var request = gapi.client.youtube.videos.list(requestOptions);
