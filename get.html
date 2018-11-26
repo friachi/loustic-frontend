@@ -6,7 +6,7 @@
   <body>
     <div id="buttons">
     <label> 
-        <button id="request-button" onclick="handleAPILoaded()">Send Request</button>
+        <button id="request-button" onclick="sendRequest()">Send Request</button>
     </label>   
     <div id="container">
       <h1>Results</h1>
@@ -21,19 +21,21 @@ var videos = {};
 var videosList = [];
 var totalVideos;
 
+function sendRequest() { 
+ handleAPILoaded();
+ //build respose object
+ videos.totalVideos = totalVideos;
+ videos.videoIds = videosList;
+ console.log("count outside " + totalVideos);
+}         
+
+          
 
 // After the API loads, call a function to get the uploads playlist ID.
 function handleAPILoaded() {
         gapi.client.setApiKey(apiKey);
-        
         gapi.client.load('youtube', 'v3', function() {
           requestVideoPlaylist(playlistId);
-          
-
-          //build respose object
-          videos.totalVideos = totalVideos;
-          videos.videoIds = videosList;
-          console.log("count outside " + totalVideos);
         });
 }
 
