@@ -62,8 +62,10 @@ function requestVideoPlaylist(playlistId, pageToken) {
      //when no more pages
      console.log("nextPage:" + nextPageToken);
      if(!nextPageToken)
-       console.log("Done: reading all pages, reading videos");
-       var requestOptions = {
+     {
+      console.log("Done: reading all pages, reading videos");
+       
+      var requestOptions = {
         id: videos.videoIds[0],
         part: ['statistics','snippet']
        };
@@ -72,6 +74,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
        request.then(function(response) {
        console.log(response);
        });
+     }
     } 
     else {
       $('#video-container').html('Sorry you have no uploaded videos');
