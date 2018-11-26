@@ -26,9 +26,6 @@ function sendRequest() {
         gapi.client.setApiKey(apiKey);
         var req1 = gapi.client.load('youtube', 'v3', function() {
           requestVideoPlaylist(playlistId);
-          videos.totalVideos = totalVideos;
-          videos.videoIds = videosList;
-          console.log("count outside " + totalVideos);
         });
 
             
@@ -53,7 +50,6 @@ function requestVideoPlaylist(playlistId, pageToken) {
     nextPageToken = response.result.nextPageToken;
     prevPageToken = response.result.prevPageToken;
     totalVideos = response.result.pageInfo.totalResults;
-    console.log("count inside " + totalVideos);
 
     var playlistItems = response.result.items;
     if (playlistItems) {
@@ -61,7 +57,12 @@ function requestVideoPlaylist(playlistId, pageToken) {
         var videoId = item.snippet.resourceId.videoId;
         videosList.push(videoId);
       });
-    } else {
+      videos.totalVideos = totalVideos;
+      while(nextPageToken){
+       nextPage();
+      }
+    } 
+    else {
       $('#video-container').html('Sorry you have no uploaded videos');
     }
   });
