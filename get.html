@@ -67,7 +67,8 @@ function requestVideoPlaylist(playlistId, pageToken) {
        
       var requestOptions = {
         id: videos.videoIds[0],
-        part: ['statistics','snippet']
+        part: 'statistics,snippet',
+        fields: 'items(statistics,snippet(title,description,tags,publishedAt,thumbnails(standard)))'
        };
 
        var request = gapi.client.youtube.videos.list(requestOptions);
