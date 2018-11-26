@@ -110,9 +110,9 @@ function previousPage() {
 
 // Retrieve the next page of videos in the playlist.
 function getVideosDetails(viedoIds) {
-	//console.log(allvideos);
+	
       var requestOptions = {
-        id: allvideos,
+        id: viedoIds,
         part: 'statistics,snippet',
         fields: 'items(statistics,snippet(title,description,tags,publishedAt,thumbnails(standard)))'
        };
