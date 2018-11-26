@@ -65,6 +65,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
      {
       console.log("Done: reading all pages, reading videos");
       var allvideos = videosList.join(",");
+      allvideos = allvideos.replace(/"/g, "'");
       //console.log(allvideos);
       var requestOptions = {
         id: allvideos,
