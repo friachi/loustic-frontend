@@ -57,8 +57,12 @@ function requestVideoPlaylist(playlistId, pageToken) {
      //build object
       videos.totalVideos = totalVideos;
       videos.videoIds = videosList;
-      console.log("nextPageToken: " + nextPageToken);
+     //read next page if any 
       if(nextPageToken) { nextPage(); }
+     //when no more pages
+     console.log("nextPage:" + nextPageToken);
+     if(!nextPageToken)
+      console.log("Done: reading all pages");
     } 
     else {
       $('#video-container').html('Sorry you have no uploaded videos');
