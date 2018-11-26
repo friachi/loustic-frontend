@@ -20,6 +20,7 @@ var playlistId='UUHziILhb2V5ahNIMSmaOAbQ';
 var videos = {};
 var videosList = [];
 var totalVideos;
+var videosDetails = {};
 
 // After the API loads, call a function to get the uploads playlist ID.
 function sendRequest() {
@@ -119,7 +120,7 @@ function getVideosDetails(viedoIds) {
       
        var request = gapi.client.youtube.videos.list(requestOptions);
        request.then(function(response) {
-       console.log(response);
+       videosDetails.push(response.result.items);
        });
   
 }
