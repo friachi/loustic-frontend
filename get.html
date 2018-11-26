@@ -21,22 +21,17 @@ var videos = {};
 var videosList = [];
 var totalVideos;
 
-function sendRequest() { 
- handleAPILoaded();
- //build respose object
- videos.totalVideos = totalVideos;
- videos.videoIds = videosList;
- console.log("count outside " + totalVideos);
-}         
-
-          
-
 // After the API loads, call a function to get the uploads playlist ID.
-function handleAPILoaded() {
+function sendRequest() {
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', function() {
           requestVideoPlaylist(playlistId);
-        });
+        
+        }).then(function(resp) {
+          videos.totalVideos = totalVideos;
+          videos.videoIds = videosList;
+          console.log("count outside " + totalVideos);
+          });
 }
 
 // Retrieve the list of videos in the specified playlist.
