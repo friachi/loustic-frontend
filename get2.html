@@ -24,6 +24,7 @@ videosDetails.results = [];
 function sendRequest() {
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', function() {
+	  console.log("Reading first page");		  	
           requestVideoPlaylist(playlistId);
         });      
         
@@ -67,13 +68,13 @@ function requestVideoPlaylist(playlistId, pageToken) {
 	  
      //read next page if any 
       if(nextPageToken) {
-		console.log("Reading next page: "+nextPageToken);		  
+	console.log("Reading next page: "+nextPageToken);		  
       	nextPage(); 
       }
      //when no more pages, then proceed in getting all videos details
      if(!nextPageToken)
      {
-      console.log("Done reading all videos");
+      console.log("Done reading all videos ("+videosDetails.results.length+")");
      }
     } 
     else {
