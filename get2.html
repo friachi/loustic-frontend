@@ -71,11 +71,13 @@ function requestVideoPlaylist(playlistId, pageToken) {
 	console.log("Reading next page: "+nextPageToken);		  
       	nextPage(); 
       }
-	else aggregateVideosPerOriginCountry();
+
     } 
     else {
       $('#video-container').html('Sorry you have no uploaded videos');
     }
+  }).then(function(response) { 
+	  aggregateVideosPerOriginCountry(); 
   });
 }
 // Retrieve the next page of videos in the playlist.
