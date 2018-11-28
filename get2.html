@@ -76,7 +76,8 @@ function requestVideoPlaylist(playlistId, pageToken) {
     else {
       $('#video-container').html('Sorry you have no uploaded videos');
     }
-  }).then(function(response) { 
+  }).then(function(response) {
+	  console.log("running aggregate");
 	  aggregateVideosPerOriginCountry(); 
   });
 }
@@ -108,7 +109,7 @@ function getVideosDetails(viedoIds) {
 }
 
 function aggregateVideosPerOriginCountry(){
-	console.log(videosDetails.results[0].id);
+	console.log("array length: " + videosDetails.results.length);
 	//$.each(videosDetails.results, function(index, item) { 
 	
 	//});
