@@ -106,8 +106,8 @@ function getVideosDetails(viedoIds) {
 }
 
 function aggregateVideosPerOriginCountry(){
-	$.each(videosDetails, function(index, item) { 
-	console.log(item.results[index]);
+	$.each(videosDetails.results, function(index, item) { 
+	console.log(item[index]);
 	});
 }
 </script> 
