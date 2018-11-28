@@ -49,12 +49,12 @@ function requestVideoPlaylist(playlistId, pageToken) {
     var temp = '';
       var playlistItems = response.result.items;
       if (playlistItems) {
-      var nbOfItems = playlistItems.length;
+      var lastvidIndex = playlistItems.length - 1;
       $.each(playlistItems, function(index, item) {
         
 	var videoId = item.snippet.resourceId.videoId;
 	//store videoIds in a comma separated list of videos string
-	if(index == (nbOfItems - 1) { 
+	if(index == lastvidIndex) { 
 	  //last iteration, don't add a comma
 	   temp += videoId;
 	}
