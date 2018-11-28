@@ -42,19 +42,30 @@ function requestVideoPlaylist(playlistId, pageToken) {
   }
   var request = gapi.client.youtube.playlistItems.list(requestOptions);
   request.then(function(response) {
-    console.log('inside');
+    
     nextPageToken = response.result.nextPageToken;
     prevPageToken = response.result.prevPageToken;
     totalVideos = response.result.pageInfo.totalResults;
     var temp = '';
       var playlistItems = response.result.items;
       if (playlistItems) {
+      var nbOfItems = playlistItems.length;
       $.each(playlistItems, function(index, item) {
-        var videoId = item.snippet.resourceId.videoId;
-	temp += videoId + ',';
+        
+	var videoId = item.snippet.resourceId.videoId;
+	//store videoIds in a comma separated list of videos string
+	if(index == (nbOfItems - 1) { 
+	  //last iteration, don't add a comma
+	   temp += videoId;
+	}
+	else 
+	{
+	  temp += videoId + ',';
+	}
+	      
         videosList.push(videoId);
       });
-	    console.log(temp);
+      console.log(temp);
      //build object
       videos.totalVideos = totalVideos;
       videos.videoIds = videosList;
