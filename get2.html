@@ -71,11 +71,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
 	console.log("Reading next page: "+nextPageToken);		  
       	nextPage(); 
       }
-     //when no more pages, then proceed in getting all videos details
-     if(!nextPageToken)
-     {
-      console.log("Done reading all videos ("+videosDetails.results.length+")");
-     }
+	else aggregateVideosPerOriginCountry();
     } 
     else {
       $('#video-container').html('Sorry you have no uploaded videos');
@@ -95,7 +91,7 @@ function getVideosDetails(viedoIds) {
 	
       var requestOptions = {
         id: viedoIds,
-        part: 'statistics,snippet',
+        part: 'id,statistics,snippet',
         fields: 'items(statistics,snippet(title,description,tags,publishedAt,thumbnails(standard)))'
        };
       
@@ -107,6 +103,12 @@ function getVideosDetails(viedoIds) {
        
        });
   
+}
+
+function aggregateVideosPerOriginCountry(){
+	$.each(videosDetails, function(index, item) { 
+	console.log(results[index]);
+	});
 }
 </script> 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
