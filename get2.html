@@ -46,13 +46,15 @@ function requestVideoPlaylist(playlistId, pageToken) {
     nextPageToken = response.result.nextPageToken;
     prevPageToken = response.result.prevPageToken;
     totalVideos = response.result.pageInfo.totalResults;
-    var playlistItems = response.result.items;
-	  console.log(playlistItems);
-    if (playlistItems) {
+    var temp = '';
+      var playlistItems = response.result.items;
+      if (playlistItems) {
       $.each(playlistItems, function(index, item) {
         var videoId = item.snippet.resourceId.videoId;
+	temp += videoId + ',';
         videosList.push(videoId);
       });
+	    console.log(temp);
      //build object
       videos.totalVideos = totalVideos;
       videos.videoIds = videosList;
