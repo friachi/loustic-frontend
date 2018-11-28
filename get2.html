@@ -17,10 +17,9 @@
 var playlistId, nextPageToken, prevPageToken;
 var apiKey='AIzaSyBF_Fv2DtGxLF_4rw_kUeMjwvPtekxau_M';
 var playlistId='UUHziILhb2V5ahNIMSmaOAbQ';
-var videos = {};
-var videosList = [];
-var totalVideos;
+
 var videosDetails = {};
+videosDetails.results = [];
 // After the API loads, call a function to get the uploads playlist ID.
 function sendRequest() {
         gapi.client.setApiKey(apiKey);
@@ -46,59 +45,35 @@ function requestVideoPlaylist(playlistId, pageToken) {
     nextPageToken = response.result.nextPageToken;
     prevPageToken = response.result.prevPageToken;
     totalVideos = response.result.pageInfo.totalResults;
-    var temp = '';
+    var chunkOfVideoIds = '';
       var playlistItems = response.result.items;
       if (playlistItems) {
       var lastvidIndex = playlistItems.length - 1;
-      $.each(playlistItems, function(index, item) {
-        
-	var videoId = item.snippet.resourceId.videoId;
-	//store videoIds in a comma separated list of videos string
-	if(index == lastvidIndex) { 
-	  //last iteration, don't add a comma
-	   temp += videoId;
-	}
-	else 
-	{
-	  temp += videoId + ',';
-	}
-	      
-        videosList.push(videoId);
+      $.each(playlistItems, function(index, item) { 
+		var videoId = item.snippet.resourceId.videoId;
+		//store videoIds in a comma separated list of videos string
+		if(index == lastvidIndex) { 
+		  //last iteration, don't add a comma
+		   chunkOfVideoIds += videoId;
+		}
+		else 
+		{
+		  chunkOfVideoIds += videoId + ',';
+		}
       });
-      console.log(temp);
-     //build object
-      videos.totalVideos = totalVideos;
-      videos.videoIds = videosList;
+      
+     //Make a request of max 50 video to youtube to get their Details
+     getVideosDetails(chunkOfVideoIds); 
+	  
      //read next page if any 
-      if(nextPageToken) { 
+      if(nextPageToken) {
+		console.log("Reading next page: "+nextPageToken);		  
       	nextPage(); 
       }
      //when no more pages, then proceed in getting all videos details
      if(!nextPageToken)
      {
-      console.log("Done: reading all pages. Reading videos now...");
-      videosDetails.results = []; //decalre an empty array to host each video detail 
-      //paginate videos per request (API accepts max 50 videos per request, if more: 400 error code is returned )
-      var pageSize = 50;
-	  var totalItems = videosList.length;
-	  var nbOfPages = Math.ceil(totalItems/pageSize);
-	  var startIndex = 0;
-	  var endIndex = startIndex;
-	  var i;
-	  for (i = 0; i < nbOfPages; i++) 
-	  { 
-		  startIndex = i * pageSize;
-		  endIndex = startIndex + pageSize;
-		  if(i == (nbOfPages-1))
-		  {
-		    endIndex = totalItems;
-		  }
-		  
-		  var pageItems = videosList.slice(startIndex,endIndex).join(",");
-		  console.log("page: " + i);
-		  console.log(pageItems);
-		  getVideosDetails(pageItems);
-	  }
+      console.log("Done reading all videos");
      }
     } 
     else {
