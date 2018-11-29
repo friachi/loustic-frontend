@@ -14,9 +14,10 @@
 	  <input type="radio" id="r2_RecordedIn" name="mapBy" value="RecordedIn"> By RecordedIn</input>
 	</div>
 	<div id="buttons">
-    <label> 
-        <button id="request-button" onclick="sendRequest()">Loustic Sessions Videos</button>
-    </label>
+      <button id="request-button" onclick="sendRequest()">Map videos</button>
+	  <button id="nontagged-button" onclick="openNonTagedList()" style="display: none;">Show non tagged videos</button>
+    </div>
+	
 	<div id="containerMap" style="position: relative; width: 80%; height: 60%;"></div>	
          
   <script>
@@ -222,7 +223,7 @@ function aggregateVideosPerCountry(){
 			
 			//check if some or all required tags not found, if so, store that video link for manual correction
 			if((!ArtistsFromFound || !RecordedInFound) && tagIndex == lastTagIndex)
-					notTaggedYet.push("https://www.youtube.com/watch?v=" + video.id);		
+					notTaggedYet.push(video.id);		
 			});
 		}
 		else {
@@ -240,8 +241,14 @@ function aggregateVideosPerCountry(){
 	
 }
 
-//get videos by ArtistsFrom country
-//get videos by RecordedIn country
+//open playlist of non taged videos
+function openNonTagedList()
+{
+	var videosList = notTaggedYet.join(",");
+	playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
+	window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');
+
+}
 
 
 //takes an aggregation object then outputs a 'series' conforming to worldmap for d3 based on videocount, then draws the map
@@ -316,6 +323,9 @@ for (var key in aggObject) {
 				window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');
 				
             });
+			
+			$('#nontagged-button').show();
+			
         }
     });
     
