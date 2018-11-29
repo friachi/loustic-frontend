@@ -9,9 +9,13 @@
 	 <script src="datamaps.world.min.js"></script>
  </head>
   <body>
-    <div id="buttons">
+    <div id="rates">
+	  <input type="radio" id="r1_ArtistsFrom" name="mapBy" value="ArtistsFrom" checked="checked"> By ArtistsFrom</input>
+	  <input type="radio" id="r2_RecordedIn" name="mapBy" value="RecordedIn"> By RecordedIn</input>
+	</div>
+	<div id="buttons">
     <label> 
-        <button id="request-button" onclick="sendRequest()">Send Request</button>
+        <button id="request-button" onclick="sendRequest()">Loustic Sessions Videos</button>
     </label>
 	<div id="containerMap" style="position: relative; width: 80%; height: 60%;"></div>	
          
@@ -60,7 +64,11 @@ function sendRequest() {
 		aggregateVideosPerCountry();
 		console.log('Aggregation done');
 		
-		renderMap(aggrByArtistsFrom);
+		if (document.getElementById('r1_ArtistsFrom').checked) {
+			renderMap(aggrByArtistsFrom);
+		}else renderMap(aggrByRecordedIn);
+		
+		
 		
         });      
         
@@ -271,7 +279,7 @@ for (var key in aggObject) {
     var map = new Datamap({
         element: document.getElementById('containerMap'),
         projection: 'mercator', // big world map
-        // countries don't listed in dataset will be painted with this color
+        // countries not listed in dataset will be painted with this color
         fills: { defaultFill: '#ffffff' },
         data: dataset,
         responsive: true,
@@ -302,9 +310,10 @@ for (var key in aggObject) {
         },
 		done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+			
                 var videosList = aggObject[geography.id].videoIds.join(",");
 				playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
-				window.open(playListUrl, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=no,menubar=no');
+				window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');
 				
             });
         }
