@@ -21,17 +21,18 @@ var playlistId='UUHziILhb2V5ahNIMSmaOAbQ';
 var videosDetails = {};
 videosDetails.results = [];
 // After the API loads, call a function to get the uploads playlist ID.
+
 function sendRequest() {
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', function() {
-	  console.log("Reading first page");		  	
+		console.log("Reading first page");		  	
           requestVideoPlaylist(playlistId);
         });      
         
 }
 // Retrieve the list of videos in the specified playlist.
 function requestVideoPlaylist(playlistId, pageToken) {
-  $('#video-container').html('');
+
   var requestOptions = {
     playlistId: playlistId,
     part: 'snippet',
@@ -45,7 +46,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
     
     nextPageToken = response.result.nextPageToken;
     prevPageToken = response.result.prevPageToken;
-    totalVideos = response.result.pageInfo.totalResults;
+
     var chunkOfVideoIds = '';
       var playlistItems = response.result.items;
       if (playlistItems) {
@@ -62,9 +63,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
 		  chunkOfVideoIds += videoId + ',';
 		}
       });
-      
-     
-	  
+
      //read next page if any 
       if(nextPageToken) {
 		console.log("Reading next page: "+nextPageToken);		  
@@ -80,7 +79,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
     }
   }).then(function(response) {
 	  console.log("getting video details");
-	  getVideosDetails(response);
+	  return getVideosDetails(response);
   });
 }
 // Retrieve the next page of videos in the playlist.
@@ -99,13 +98,13 @@ function getVideosDetails(viedoIds) {
         part: 'id,statistics,snippet',
         fields: 'items(id,statistics,snippet(title,description,tags,publishedAt,thumbnails(standard)))'
        };
-      
+       
        var request = gapi.client.youtube.videos.list(requestOptions);
        request.then(function(response) {
        	$.each( response.result.items, function( index, value ){
 		    videosDetails.results.push(value);
 		});
-       return videosDetails;
+      console.log('got video details');
        });
   
 }
