@@ -137,22 +137,22 @@ function aggregateVideosPerCountry(){
 						//aggregate already exists, thus increment it
 						
 						aggrByArtistsFrom[country].videoCount += 1;
-						aggrByArtistsFrom[country].viewCount += item.statistics.viewCount;
-						aggrByArtistsFrom[country].likeCount += item.statistics.likeCount;
-						aggrByArtistsFrom[country].dislikeCount += item.statistics.dislikeCount;
-						aggrByArtistsFrom[country].favoriteCount += item.statistics.favoriteCount;
-						aggrByArtistsFrom[country].commentCount += item.statistics.commentCount;
+						aggrByArtistsFrom[country].viewCount += parseInt(item.statistics.viewCount);
+						aggrByArtistsFrom[country].likeCount += parseInt(item.statistics.likeCount);
+						aggrByArtistsFrom[country].dislikeCount += parseInt(item.statistics.dislikeCount);
+						aggrByArtistsFrom[country].favoriteCount += parseInt(item.statistics.favoriteCount);
+						aggrByArtistsFrom[country].commentCount += parseInt(item.statistics.commentCount);
 						aggrByArtistsFrom[country].videoIds.push(item.id);
 					}
 					else{
 						//aggregate is being added for first time, thus initialize it
 						aggrByArtistsFrom[country] = {};
 						aggrByArtistsFrom[country].videoCount = 1;
-						aggrByArtistsFrom[country].viewCount = item.statistics.viewCount;
-						aggrByArtistsFrom[country].likeCount = item.statistics.likeCount;
-						aggrByArtistsFrom[country].dislikeCount = item.statistics.dislikeCount;
-						aggrByArtistsFrom[country].favoriteCount = item.statistics.favoriteCount;
-						aggrByArtistsFrom[country].commentCount = item.statistics.commentCount;
+						aggrByArtistsFrom[country].viewCount = parseInt(item.statistics.viewCount);
+						aggrByArtistsFrom[country].likeCount = parseInt(item.statistics.likeCount);
+						aggrByArtistsFrom[country].dislikeCount = parseInt(item.statistics.dislikeCount);
+						aggrByArtistsFrom[country].favoriteCount = parseInt(item.statistics.favoriteCount);
+						aggrByArtistsFrom[country].commentCount = parseInt(item.statistics.commentCount);
 						aggrByArtistsFrom[country].videoIds = [];
 						aggrByArtistsFrom[country].videoIds.push(item.id);
 					}
