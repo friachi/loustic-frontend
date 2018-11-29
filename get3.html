@@ -21,6 +21,7 @@ var videosDetails = {};
 videosDetails.results = [];
 var aggrByArtistsFrom = {};
 var aggrByRecordedIn = {};
+var notTaggedYet = [];
 // After the API loads, call a function to get the uploads playlist ID.
 
 
@@ -128,7 +129,7 @@ function aggregateVideosPerCountry(){
 			$.each(tags, function(index, tag) {
 			
 			//start ArtistsFrom
-			//check if video has 'ArtistsFrom:' tag, if yes (i.e indexOf > -1), add it to aggregate
+			//check if video has 'ArtistsFrom:' tag, if yes, add it to aggregate
 			if(tag.indexOf('ArtistsFrom:') !== -1) {
 				var arr = tag.split(':');
 				var country = arr[1];
@@ -159,12 +160,51 @@ function aggregateVideosPerCountry(){
 				}
 				else console.log("No country provided on 'ArtistsFrom:', or no colon . VideoId: " + item.id );
 			}
-			//// end ArtistsFrom
+			
+			//start RecordedIn
+			//check if video has 'RecordedIn:' tag, if yes, add it to aggregate
+			else if(tag.indexOf('RecordedIn:') !== -1) {
+				var arr = tag.split(':');
+				var country = arr[1];
+				if(country) {
+					if(aggrByRecordedIn.hasOwnProperty(country)){
+						//aggregate already exists, thus increment it
+						
+						aggrByRecordedIn[country].videoCount += 1;
+						aggrByRecordedIn[country].viewCount += parseInt(item.statistics.viewCount);
+						aggrByRecordedIn[country].likeCount += parseInt(item.statistics.likeCount);
+						aggrByRecordedIn[country].dislikeCount += parseInt(item.statistics.dislikeCount);
+						aggrByRecordedIn[country].favoriteCount += parseInt(item.statistics.favoriteCount);
+						aggrByRecordedIn[country].commentCount += parseInt(item.statistics.commentCount);
+						aggrByRecordedIn[country].videoIds.push(item.id);
+					}
+					else{
+						//aggregate is being added for first time, thus initialize it
+						aggrByRecordedIn[country] = {};
+						aggrByRecordedIn[country].videoCount = 1;
+						aggrByRecordedIn[country].viewCount = parseInt(item.statistics.viewCount);
+						aggrByRecordedIn[country].likeCount = parseInt(item.statistics.likeCount);
+						aggrByRecordedIn[country].dislikeCount = parseInt(item.statistics.dislikeCount);
+						aggrByRecordedIn[country].favoriteCount = parseInt(item.statistics.favoriteCount);
+						aggrByRecordedIn[country].commentCount = parseInt(item.statistics.commentCount);
+						aggrByRecordedIn[country].videoIds = [];
+						aggrByRecordedIn[country].videoIds.push(item.id);
+					}
+				}
+				else console.log("No country provided on 'RecordedIn:', or no colon . VideoId: " + item.id );
+			}
+			//// end RecordedIn
+			else{
+			notTaggedYet.push("https://www.youtube.com/watch?v="+item.id);
+			}
 				
 			});
 		}
 	});
 }
+
+//get videos by ArtistsFrom country
+//get videos by RecordedIn country
 
 </script> 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
