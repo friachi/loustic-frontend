@@ -19,6 +19,8 @@ var playlistId='UUHziILhb2V5ahNIMSmaOAbQ';
 
 var videosDetails = {};
 videosDetails.results = [];
+var aggrByArtistsFrom = {};
+var aggrByRecordedIn = {};
 // After the API loads, call a function to get the uploads playlist ID.
 
 
@@ -111,11 +113,20 @@ function getVideosDetails(viedoIds) {
 }
 
 function aggregateVideosPerCountry(){
-//ArtistsFrom:
-//RecordedIn:	
-	$.each(videosDetails.results, function(index, item) {
-	console.log(item.snippet.tags);
+//will populate the below objects
+//var aggrByArtistsFrom = {};
+//var aggrByRecordedIn = {};
 	
+	$.each(videosDetails.results, function(index, item) {
+	var tags = item.snippet.tags;
+		$.each(tags, function(index, tag) {
+		
+		//check if video has 'ArtistsFrom:' tag, if yes, add it to aggregate
+		if(tag.indexOf('ArtistsFrom:') !== -1) {
+		console.log(item.snippet.title);
+		}
+			
+		});
 	});
 }
 
