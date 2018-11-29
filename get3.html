@@ -26,9 +26,10 @@ var notTaggedYet = [];
 
 
 function sendRequest() {
-		console.log("Sending Request for all uploaded videos on Loustic Sessions...");
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', async function() {
+
+		console.log("Sending Request for all uploaded videos on Loustic Sessions...");
 
 		//read first page of video ids
 		const videoList = await requestVideoPlaylist(playlistId);
@@ -208,14 +209,18 @@ function aggregateVideosPerCountry(){
 					notTaggedYet.push("https://www.youtube.com/watch?v=" + video.id);		
 			});
 		}
+		else {
+		//no tags at all
+		notTaggedYet.push("https://www.youtube.com/watch?v=" + video.id);
+		}
 	});
-	console.log("Videos Aggregated by 'ArtistsFrom:' tag (stored in aggrByArtistsFrom):");
+	console.log("Videos Aggregated by 'ArtistsFrom:' tag (aggrByArtistsFrom):");
 	console.log(aggrByArtistsFrom);
 	
-	console.log("Videos Aggregated by 'RecordedIn:' tag (stored in aggrByRecordedIn):");
+	console.log("Videos Aggregated by 'RecordedIn:' tag (aggrByRecordedIn):");
 	console.log(aggrByRecordedIn);
 	
-	console.log("Videos having missing or no required tags on video (stored in notTaggedYet):");
+	console.log("Videos having missing or none of the required tags (notTaggedYet):");
 	console.log(notTaggedYet);
 }
 
