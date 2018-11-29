@@ -304,7 +304,7 @@ for (var key in aggObject) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
                 var videosList = aggObject[geography.id].videoIds.join(",");
 				playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
-				window.open(playListUrl, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+				window.open(playListUrl, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=no,menubar=no');
 				
             });
         }
