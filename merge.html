@@ -295,11 +295,11 @@ for (var key in aggObject) {
                 // tooltip content
                 return ['<div class="hoverinfo">',
                     '<strong>', geo.properties.name, '</strong>',
-                    '<br><br>     Sessions: <strong>', data.numberOfThings, '</strong>',
-					'<br>      Views: <strong>', aggObject[geo.id].viewCount , '</strong>',
-					'<br>       Likes: <strong>', aggObject[geo.id].likeCount , '</strong>',
-					'<br>    Dislikes: <strong>', aggObject[geo.id].dislikeCount , '</strong>',
-					'<br>  Favorites: <strong>', aggObject[geo.id].favoriteCount , '</strong>',
+                    '<br><br>Sessions: <strong>', data.numberOfThings, '</strong>',
+					'<br>Views: <strong>', aggObject[geo.id].viewCount , '</strong>',
+					'<br>Likes: <strong>', aggObject[geo.id].likeCount , '</strong>',
+					'<br>Dislikes: <strong>', aggObject[geo.id].dislikeCount , '</strong>',
+					'<br>Favorites: <strong>', aggObject[geo.id].favoriteCount , '</strong>',
 					'<br>Comments: <strong>', aggObject[geo.id].commentCount , '</strong>',
                     '</div>'].join(''); 
             }
@@ -333,10 +333,11 @@ function openNonTagedList()
 {
 	var videosList;
 	var playListUrl;
-	//paginate playlists if videos > pageSize
+	
 	
 	if(notTaggedYet.length > 50){
-		  videosList = notTaggedYet.slice(startIndex,endIndex).join(",");
+	//get only first 50
+		videosList = notTaggedYet.slice(0,50).join(",");
 	}
 	else {
 		videosList = notTaggedYet.join(",");
