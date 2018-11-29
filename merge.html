@@ -2,6 +2,8 @@
 <html>
  <head>
  <title>Get Videos details by playlist reduced</title>
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+ <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady">  </script>
   </head>
   <body>
     <div id="buttons">
@@ -222,8 +224,8 @@ function aggregateVideosPerCountry(){
 	console.log("Videos Aggregated by 'RecordedIn:' tag (aggrByRecordedIn):");
 	console.log(aggrByRecordedIn);
 	
-	console.log("Videos having missing or none of the required tags (notTaggedYet):");
-	console.log(notTaggedYet);
+	console.log("Videos having missing or none of the required tags can be found in object (notTaggedYet)");
+	
 }
 
 //get videos by ArtistsFrom country
@@ -244,7 +246,6 @@ for (var key in aggObject) {
 }
 
 </script> 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady">  </script>
+    
     </body>
 </html>
