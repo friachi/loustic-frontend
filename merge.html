@@ -352,11 +352,12 @@ function openNonTagedList()
 		  {
 			endIndex = totalItems;
 		  }
-		  console.log("pages:" +i+ "start" +startIndex+ "end" +endIndex+ "");
+		  console.log("pages: " +i+ ", start: " +startIndex+ ", end: " +endIndex+ "");
 		  videosList = [];
+		  playListUrl = '';
 		  videosList = notTaggedYet.slice(startIndex,endIndex).join(",");
-		  console.log(playListUrl);
 		  playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
+		  console.log(playListUrl);
 		  setTimeout(function (){
 
 			window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');
