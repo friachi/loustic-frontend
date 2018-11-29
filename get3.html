@@ -29,15 +29,18 @@ function sendRequest() {
 		console.log("Reading first page");
 		const videoList = await requestVideoPlaylist(playlistId);
 		console.log(videoList);
+		await getVideosDetails(videoList);
 		
 		while(nextPageToken)
 		{
 			console.log("Reading next page: "+nextPageToken);
 			const videoList = await requestVideoPlaylist(playlistId,nextPageToken);
 			console.log(videoList);
+			await getVideosDetails(videoList);
 		
 		}
 		
+		console.log(videoList);
 		
         });      
         
@@ -97,12 +100,12 @@ function getVideosDetails(viedoIds) {
         fields: 'items(id,statistics,snippet(title,description,tags,publishedAt,thumbnails(standard)))'
        };
        
-       var request = gapi.client.youtube.videos.list(requestOptions);
-       request.then(function(response) {
+       return gapi.client.youtube.videos.list(requestOptions)
+		.then(function(response) {
        	$.each( response.result.items, function( index, value ){
 		    videosDetails.results.push(value);
 		});
-      console.log('got video details');
+		
        });
   
 }
