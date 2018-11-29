@@ -26,6 +26,7 @@ var notTaggedYet = [];
 
 
 function sendRequest() {
+		console.log("Sending Request for all uploaded videos on Loustic Sessions...");
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', async function() {
 
@@ -44,8 +45,11 @@ function sendRequest() {
 		
 		//aggregate videos count. It generates 2 objects: aggrByArtistsFrom & aggrByRecordedIn with the below structure:
 		//{ country : { videoCount,viewCount,likeCount,dislikeCount,favoriteCount,commentCount,videoIds:[strings]} }
+		console.log('Data received.');
+		
+		console.log('Aggregating data based on tags...');
 		aggregateVideosPerCountry();
-		console.log('done');
+		console.log('Aggregation done');
 		
         });      
         
