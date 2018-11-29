@@ -26,21 +26,21 @@ function sendRequest() {
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', async function() {
 
-		console.log("Reading first page");
+		//read first page of video ids
 		const videoList = await requestVideoPlaylist(playlistId);
-		console.log(videoList);
+		
+		// ...get their video details and store in 'videosDetails'
 		await getVideosDetails(videoList);
 		
+		//if more pages, loop on all (nextPageToken is being updated inside requestVideoPlaylist()
 		while(nextPageToken)
 		{
-			console.log("Reading next page: "+nextPageToken);
 			const videoList = await requestVideoPlaylist(playlistId,nextPageToken);
-			console.log(videoList);
 			await getVideosDetails(videoList);
-		
 		}
 		
-		console.log(videosDetails);
+		aggregateVideosPerCountry();
+		console.log("done");
 		
         });      
         
@@ -83,7 +83,7 @@ function requestVideoPlaylist(playlistId, pageToken) {
 		}
       });
 	  
-	  //Make a request of max 50 video to youtube to get their Details
+	 //the promise is to retrun a string with comma separated video ids
      return chunkOfVideoIds;
 
     } 
@@ -108,6 +108,13 @@ function getVideosDetails(viedoIds) {
 		
        });
   
+}
+
+function aggregateVideosPerOriginCountry(){
+	console.log("array length: " + videosDetails.results.length);
+	//$.each(videosDetails.results, function(index, item) { 
+	
+	//});
 }
 
 </script> 
