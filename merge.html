@@ -295,11 +295,11 @@ for (var key in aggObject) {
                 // tooltip content
                 return ['<div class="hoverinfo">',
                     '<strong>', geo.properties.name, '</strong>',
-                    '<br><br>Sessions: <strong>', data.numberOfThings, '</strong>',
-					'<br>Views: <strong>', aggObject[geo.id].viewCount , '</strong>',
-					'<br>Likes: <strong>', aggObject[geo.id].likeCount , '</strong>',
-					'<br>Dislikes: <strong>', aggObject[geo.id].dislikeCount , '</strong>',
-					'<br>Favorites: <strong>', aggObject[geo.id].favoriteCount , '</strong>',
+                    '<br><br>     Sessions: <strong>', data.numberOfThings, '</strong>',
+					'<br>      Views: <strong>', aggObject[geo.id].viewCount , '</strong>',
+					'<br>       Likes: <strong>', aggObject[geo.id].likeCount , '</strong>',
+					'<br>    Dislikes: <strong>', aggObject[geo.id].dislikeCount , '</strong>',
+					'<br>  Favorites: <strong>', aggObject[geo.id].favoriteCount , '</strong>',
 					'<br>Comments: <strong>', aggObject[geo.id].commentCount , '</strong>',
                     '</div>'].join(''); 
             }
@@ -332,46 +332,17 @@ for (var key in aggObject) {
 function openNonTagedList()
 {
 	var videosList;
-	var pageSize = 50;
 	var playListUrl;
 	//paginate playlists if videos > pageSize
 	
-	if(notTaggedYet.length > pageSize){
-	
-	var totalItems = notTaggedYet.length;
-	var nbOfPages = Math.ceil(totalItems/pageSize);
-	var startIndex = 0;
-	var endIndex = startIndex;
-
-	var i;
-	  for (i = 0; i < nbOfPages; i++) 
-	  { 
-		  startIndex = i * pageSize;
-		  endIndex = startIndex + pageSize;
-		  if(i == (nbOfPages-1))
-		  {
-			endIndex = totalItems;
-		  }
-		  console.log("pages: " +i+ ", start: " +startIndex+ ", end: " +endIndex+ "");
-		  videosList = [];
-		  playListUrl = '';
+	if(notTaggedYet.length > 50){
 		  videosList = notTaggedYet.slice(startIndex,endIndex).join(",");
-		  playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
-		  console.log(playListUrl);
-		  setTimeout(function (){
-
-			window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');
-
-			}, 1000); // How long do you want the delay to be (in milliseconds)? 
-		  
-	  }
-
 	}
 	else {
 		videosList = notTaggedYet.join(",");
-		playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
-		window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');
 	}
+	playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
+	window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');  
 
 
 }
