@@ -41,8 +41,10 @@ function sendRequest() {
 			await getVideosDetails(videoList);
 		}
 		
+		//aggregate videos count. It generates 2 objects: aggrByArtistsFrom & aggrByRecordedIn with the below structure:
+		//{ country : { videoCount,viewCount,likeCount,dislikeCount,favoriteCount,commentCount,videoIds:[strings]} }
 		aggregateVideosPerCountry();
-		
+		console.log('done');
 		
         });      
         
@@ -124,20 +126,39 @@ function aggregateVideosPerCountry(){
 			//go through all tags of this video
 			$.each(tags, function(index, tag) {
 			
+			//start ArtistsFrom
 			//check if video has 'ArtistsFrom:' tag, if yes (i.e indexOf > -1), add it to aggregate
 			if(tag.indexOf('ArtistsFrom:') !== -1) {
 				var arr = tag.split(':');
 				var country = arr[1];
 				if(country) {
 					if(aggrByArtistsFrom.hasOwnProperty(country)){
-						aggrByArtistsFrom[country] += 1;
+						//aggregate already exists, thus increment it
+						aggrByArtistsFrom[country] = {};
+						aggrByArtistsFrom[country].videoCount += 1;
+						aggrByArtistsFrom[country].viewCount += item.statistics.viewCount;
+						aggrByArtistsFrom[country].likeCount += item.statistics.likeCount;
+						aggrByArtistsFrom[country].dislikeCount += item.statistics.dislikeCount;
+						aggrByArtistsFrom[country].favoriteCount += item.statistics.favoriteCount;
+						aggrByArtistsFrom[country].commentCount += item.statistics.commentCount;
+						aggrByArtistsFrom[country].videoIds.push(item.id);
 					}
 					else{
-						aggrByArtistsFrom[country] = 1;
+						//aggregate is being added for first time, thus initialize it
+						aggrByArtistsFrom[country] = {};
+						aggrByArtistsFrom[country].videoCount = 1;
+						aggrByArtistsFrom[country].viewCount = item.statistics.viewCount;
+						aggrByArtistsFrom[country].likeCount = item.statistics.likeCount;
+						aggrByArtistsFrom[country].dislikeCount = item.statistics.dislikeCount;
+						aggrByArtistsFrom[country].favoriteCount = item.statistics.favoriteCount;
+						aggrByArtistsFrom[country].commentCount = item.statistics.commentCount;
+						aggrByArtistsFrom[country].videoIds = [];
+						aggrByArtistsFrom[country].videoIds.push(item.id);
 					}
 				}
 				else console.log("No country provided on 'ArtistsFrom:', or no colon . VideoId: " + item.id );
 			}
+			//// end ArtistsFrom
 				
 			});
 		}
