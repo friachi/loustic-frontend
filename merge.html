@@ -333,6 +333,7 @@ function openNonTagedList()
 	var pageSize = 50;
 	var playListUrl;
 	//paginate playlists if videos > pageSize
+	
 	if(notTaggedYet.length > pageSize){
 	
 	var totalItems = notTaggedYet.length;
@@ -353,6 +354,7 @@ function openNonTagedList()
 		  videosList = notTaggedYet.slice(startIndex,endIndex).join(",");
 		  playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
 		  window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');
+		  console("Open new window");
 	  }
 
 	}
