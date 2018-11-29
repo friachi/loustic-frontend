@@ -121,12 +121,15 @@ function aggregateVideosPerCountry(){
 //var aggrByArtistsFrom = {};
 //var aggrByRecordedIn = {};
 	
-	//go through all videos
-	$.each(videosDetails.results, function(index, item) {
-		var tags = item.snippet.tags;
+	//go through all videos item
+	$.each(videosDetails.results, function(vidIndex, video) {
+		var tags = video.snippet.tags;
 		if(tags){
+			var ArtistsFromFound = false;
+			var RecordedInFound = false;
+			var lastTagIndex = tags.length - 1;
 			//go through all tags of this video
-			$.each(tags, function(index, tag) {
+			$.each(tags, function(tagIndex, tag) {
 			
 			//start ArtistsFrom
 			//check if video has 'ArtistsFrom:' tag, if yes, add it to aggregate
@@ -138,27 +141,27 @@ function aggregateVideosPerCountry(){
 						//aggregate already exists, thus increment it
 						
 						aggrByArtistsFrom[country].videoCount += 1;
-						aggrByArtistsFrom[country].viewCount += parseInt(item.statistics.viewCount);
-						aggrByArtistsFrom[country].likeCount += parseInt(item.statistics.likeCount);
-						aggrByArtistsFrom[country].dislikeCount += parseInt(item.statistics.dislikeCount);
-						aggrByArtistsFrom[country].favoriteCount += parseInt(item.statistics.favoriteCount);
-						aggrByArtistsFrom[country].commentCount += parseInt(item.statistics.commentCount);
-						aggrByArtistsFrom[country].videoIds.push(item.id);
+						aggrByArtistsFrom[country].viewCount += parseInt(video.statistics.viewCount);
+						aggrByArtistsFrom[country].likeCount += parseInt(video.statistics.likeCount);
+						aggrByArtistsFrom[country].dislikeCount += parseInt(video.statistics.dislikeCount);
+						aggrByArtistsFrom[country].favoriteCount += parseInt(video.statistics.favoriteCount);
+						aggrByArtistsFrom[country].commentCount += parseInt(video.statistics.commentCount);
+						aggrByArtistsFrom[country].videoIds.push(video.id);
 					}
 					else{
 						//aggregate is being added for first time, thus initialize it
 						aggrByArtistsFrom[country] = {};
 						aggrByArtistsFrom[country].videoCount = 1;
-						aggrByArtistsFrom[country].viewCount = parseInt(item.statistics.viewCount);
-						aggrByArtistsFrom[country].likeCount = parseInt(item.statistics.likeCount);
-						aggrByArtistsFrom[country].dislikeCount = parseInt(item.statistics.dislikeCount);
-						aggrByArtistsFrom[country].favoriteCount = parseInt(item.statistics.favoriteCount);
-						aggrByArtistsFrom[country].commentCount = parseInt(item.statistics.commentCount);
+						aggrByArtistsFrom[country].viewCount = parseInt(video.statistics.viewCount);
+						aggrByArtistsFrom[country].likeCount = parseInt(video.statistics.likeCount);
+						aggrByArtistsFrom[country].dislikeCount = parseInt(video.statistics.dislikeCount);
+						aggrByArtistsFrom[country].favoriteCount = parseInt(video.statistics.favoriteCount);
+						aggrByArtistsFrom[country].commentCount = parseInt(video.statistics.commentCount);
 						aggrByArtistsFrom[country].videoIds = [];
-						aggrByArtistsFrom[country].videoIds.push(item.id);
+						aggrByArtistsFrom[country].videoIds.push(video.id);
 					}
 				}
-				else console.log("No country provided on 'ArtistsFrom:', or no colon . VideoId: " + item.id );
+				else console.log("No country provided on 'ArtistsFrom:', or no colon . VideoId: " + video.id );
 			}
 			
 			//start RecordedIn
@@ -171,34 +174,44 @@ function aggregateVideosPerCountry(){
 						//aggregate already exists, thus increment it
 						
 						aggrByRecordedIn[country].videoCount += 1;
-						aggrByRecordedIn[country].viewCount += parseInt(item.statistics.viewCount);
-						aggrByRecordedIn[country].likeCount += parseInt(item.statistics.likeCount);
-						aggrByRecordedIn[country].dislikeCount += parseInt(item.statistics.dislikeCount);
-						aggrByRecordedIn[country].favoriteCount += parseInt(item.statistics.favoriteCount);
-						aggrByRecordedIn[country].commentCount += parseInt(item.statistics.commentCount);
-						aggrByRecordedIn[country].videoIds.push(item.id);
+						aggrByRecordedIn[country].viewCount += parseInt(video.statistics.viewCount);
+						aggrByRecordedIn[country].likeCount += parseInt(video.statistics.likeCount);
+						aggrByRecordedIn[country].dislikeCount += parseInt(video.statistics.dislikeCount);
+						aggrByRecordedIn[country].favoriteCount += parseInt(video.statistics.favoriteCount);
+						aggrByRecordedIn[country].commentCount += parseInt(video.statistics.commentCount);
+						aggrByRecordedIn[country].videoIds.push(video.id);
 					}
 					else{
 						//aggregate is being added for first time, thus initialize it
 						aggrByRecordedIn[country] = {};
 						aggrByRecordedIn[country].videoCount = 1;
-						aggrByRecordedIn[country].viewCount = parseInt(item.statistics.viewCount);
-						aggrByRecordedIn[country].likeCount = parseInt(item.statistics.likeCount);
-						aggrByRecordedIn[country].dislikeCount = parseInt(item.statistics.dislikeCount);
-						aggrByRecordedIn[country].favoriteCount = parseInt(item.statistics.favoriteCount);
-						aggrByRecordedIn[country].commentCount = parseInt(item.statistics.commentCount);
+						aggrByRecordedIn[country].viewCount = parseInt(video.statistics.viewCount);
+						aggrByRecordedIn[country].likeCount = parseInt(video.statistics.likeCount);
+						aggrByRecordedIn[country].dislikeCount = parseInt(video.statistics.dislikeCount);
+						aggrByRecordedIn[country].favoriteCount = parseInt(video.statistics.favoriteCount);
+						aggrByRecordedIn[country].commentCount = parseInt(video.statistics.commentCount);
 						aggrByRecordedIn[country].videoIds = [];
-						aggrByRecordedIn[country].videoIds.push(item.id);
+						aggrByRecordedIn[country].videoIds.push(video.id);
 					}
 				}
-				else console.log("No country provided on 'RecordedIn:', or no colon . VideoId: " + item.id );
+				else console.log("No country provided on 'RecordedIn:', or no colon . VideoId: " + video.id );
 			}
 			//// end RecordedIn
 			
-				
+			//check if some or all required tags not found, if so, store that video link for manual correction
+			if((!ArtistsFromFound || !RecordedInFound) && tagIndex == lastTag)
+					notTaggedYet.push("https://www.youtube.com/watch?v=" + video.id);		
 			});
 		}
 	});
+	console.log("Videos Aggregated by 'ArtistsFrom:' tag:");
+	console.log(aggrByArtistsFrom);
+	
+	console.log("Videos Aggregated by 'RecordedIn:' tag:");
+	console.log(aggrByRecordedIn);
+	
+	console.log("Videos having missing or no required tags on video:");
+	console.log(notTaggedYet);
 }
 
 //get videos by ArtistsFrom country
