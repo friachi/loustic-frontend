@@ -44,6 +44,7 @@ function sendRequest() {
 		//aggregate videos count. It generates 2 objects: aggrByArtistsFrom & aggrByRecordedIn with the below structure:
 		//{ country : { videoCount,viewCount,likeCount,dislikeCount,favoriteCount,commentCount,videoIds:[strings]} }
 		aggregateVideosPerCountry();
+		console.log(aggrByArtistsFrom);
 		console.log('done');
 		
         });      
