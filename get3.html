@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+ <head>
+ <title>Get Videos details by playlist reduced</title>
+  </head>
+  <body>
+    <div id="buttons">
+    <label> 
+        <button id="request-button" onclick="sendRequest()">Send Request</button>
+    </label>   
+         
+  <script>
+  
+
+// Define some variables used to remember state.
+var playlistId, nextPageToken, prevPageToken;
+var apiKey='AIzaSyBF_Fv2DtGxLF_4rw_kUeMjwvPtekxau_M';
+var playlistId='UUHziILhb2V5ahNIMSmaOAbQ';
+
+var videosDetails = {};
+videosDetails.results = [];
+// After the API loads, call a function to get the uploads playlist ID.
+
+
+async function sendRequest() {
+        gapi.client.setApiKey(apiKey);
+        gapi.client.load('youtube', 'v3', function() {
+
+		console.log("Reading first page");
+		const videoList = await requestVideoPlaylist(playlistId);
+		console.log(videoList);
+		
+		while(nextPageToken)
+		{
+			console.log("Reading next page: "+nextPageToken);
+			const videoList = await requestVideoPlaylist(playlistId,nextPageToken);
+			console.log(videoList);
+		
+		}
+		
+		
+        });      
+        
+}
+
+
+
+
+// Retrieve the list of videos in the specified playlist.
+function requestVideoPlaylist(playlistId, pageToken) {
+
+  var requestOptions = {
+    playlistId: playlistId,
+    part: 'snippet',
+    maxResults: 50
+  };
+  if (pageToken) {
+    requestOptions.pageToken = pageToken;
+  }
+  return gapi.client.youtube.playlistItems.list(requestOptions)
+		 .then(function(response) {
+    
+    nextPageToken = response.result.nextPageToken;
+    prevPageToken = response.result.prevPageToken;
+
+    var chunkOfVideoIds = '';
+      var playlistItems = response.result.items;
+      if (playlistItems) {
+      var lastvidIndex = playlistItems.length - 1;
+      $.each(playlistItems, function(index, item) { 
+		var videoId = item.snippet.resourceId.videoId;
+		//store videoIds in a comma separated list of videos string
+		if(index == lastvidIndex) { 
+		  //last iteration, don't add a comma
+		   chunkOfVideoIds += videoId;
+		}
+		else 
+		{
+		  chunkOfVideoIds += videoId + ',';
+		}
+      });
+	  
+	  //Make a request of max 50 video to youtube to get their Details
+     return chunkOfVideoIds;
+
+    } 
+  });
+}
+
+
+// Retrieve the next page of videos in the playlist.
+function getVideosDetails(viedoIds) {
+	
+      var requestOptions = {
+        id: viedoIds,
+        part: 'id,statistics,snippet',
+        fields: 'items(id,statistics,snippet(title,description,tags,publishedAt,thumbnails(standard)))'
+       };
+       
+       var request = gapi.client.youtube.videos.list(requestOptions);
+       request.then(function(response) {
+       	$.each( response.result.items, function( index, value ){
+		    videosDetails.results.push(value);
+		});
+      console.log('got video details');
+       });
+  
+}
+
+</script> 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady">  </script>
+    </body>
+</html>
