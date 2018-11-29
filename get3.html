@@ -127,10 +127,14 @@ function aggregateVideosPerCountry(){
 			//check if video has 'ArtistsFrom:' tag, if yes (i.e indexOf > -1), add it to aggregate
 			if(tag.indexOf('ArtistsFrom:') !== -1) {
 				var arr = tag.split(':');
-				if(arr[1]) {
-				
-					aggrByArtistsFrom[arr[1]] += 1;
-					
+				var country = arr[1];
+				if(country) {
+					if(aggrByArtistsFrom.hasOwnProperty(country)){
+						aggrByArtistsFrom[country] += 1;
+					}
+					else{
+						aggrByArtistsFrom[country] = 1;
+					}
 				}
 				else console.log("No country provided on 'ArtistsFrom:', or no colon . VideoId: " + item.id );
 			}
