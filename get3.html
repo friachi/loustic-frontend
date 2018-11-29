@@ -22,9 +22,9 @@ videosDetails.results = [];
 // After the API loads, call a function to get the uploads playlist ID.
 
 
-async function sendRequest() {
+function sendRequest() {
         gapi.client.setApiKey(apiKey);
-        gapi.client.load('youtube', 'v3', function() {
+        gapi.client.load('youtube', 'v3', async function() {
 
 		console.log("Reading first page");
 		const videoList = await requestVideoPlaylist(playlistId);
