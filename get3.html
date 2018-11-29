@@ -134,6 +134,7 @@ function aggregateVideosPerCountry(){
 			//start ArtistsFrom
 			//check if video has 'ArtistsFrom:' tag, if yes, add it to aggregate
 			if(tag.indexOf('ArtistsFrom:') !== -1) {
+				ArtistsFromFound = true;
 				var arr = tag.split(':');
 				var country = arr[1];
 				if(country) {
@@ -167,6 +168,7 @@ function aggregateVideosPerCountry(){
 			//start RecordedIn
 			//check if video has 'RecordedIn:' tag, if yes, add it to aggregate
 			else if(tag.indexOf('RecordedIn:') !== -1) {
+				RecordedInFound = true;
 				var arr = tag.split(':');
 				var country = arr[1];
 				if(country) {
@@ -199,7 +201,7 @@ function aggregateVideosPerCountry(){
 			//// end RecordedIn
 			
 			//check if some or all required tags not found, if so, store that video link for manual correction
-			if((!ArtistsFromFound || !RecordedInFound) && tagIndex == lastTag)
+			if((!ArtistsFromFound || !RecordedInFound) && tagIndex == lastTagIndex)
 					notTaggedYet.push("https://www.youtube.com/watch?v=" + video.id);		
 			});
 		}
