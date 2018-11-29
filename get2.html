@@ -72,15 +72,15 @@ function requestVideoPlaylist(playlistId, pageToken) {
       }
 	  
 	  //Make a request of max 50 video to youtube to get their Details
-     return getVideosDetails(chunkOfVideoIds); 
+     return chunkOfVideoIds;
 
     } 
     else {
       $('#video-container').html('Sorry you have no uploaded videos');
     }
   }).then(function(response) {
-	  console.log("running aggregate");
-	  aggregateVideosPerOriginCountry(); 
+	  console.log("getting video details");
+	  getVideosDetails(response);
   });
 }
 // Retrieve the next page of videos in the playlist.
@@ -105,7 +105,7 @@ function getVideosDetails(viedoIds) {
        	$.each( response.result.items, function( index, value ){
 		    videosDetails.results.push(value);
 		});
-       
+       return videosDetails;
        });
   
 }
