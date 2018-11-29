@@ -302,7 +302,10 @@ for (var key in aggObject) {
         },
 		done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-                console.log(geography);
+                var videosList = aggObject[geography.id].videoIds.join(",");
+				playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
+				window.open(dplayListUrl, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+				
             });
         }
     });
