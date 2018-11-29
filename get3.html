@@ -135,7 +135,7 @@ function aggregateVideosPerCountry(){
 				if(country) {
 					if(aggrByArtistsFrom.hasOwnProperty(country)){
 						//aggregate already exists, thus increment it
-						aggrByArtistsFrom[country] = {};
+						
 						aggrByArtistsFrom[country].videoCount += 1;
 						aggrByArtistsFrom[country].viewCount += item.statistics.viewCount;
 						aggrByArtistsFrom[country].likeCount += item.statistics.likeCount;
