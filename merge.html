@@ -23,9 +23,8 @@
   
 
 // Define some variables used to remember state.
-var playlistId, nextPageToken, prevPageToken;
+var nextPageToken, prevPageToken;
 var apiKey='AIzaSyBF_Fv2DtGxLF_4rw_kUeMjwvPtekxau_M';
-
 var playlistId='UUHziILhb2V5ahNIMSmaOAbQ'; //Loustic sessions 'Uploads' playlist
 
 var videosDetails = {};
@@ -36,8 +35,20 @@ var notTaggedYet = [];
 var series = [];
 // After the API loads, call a function to get the uploads playlist ID.
 
+function reset()
+{
+	nextPageToken = undefined;
+	prevPageToken = undefined;
+	videosDetails = {};
+	videosDetails.results = [];
+	aggrByArtistsFrom = {};
+	aggrByRecordedIn = {};
+	notTaggedYet = [];
+	series = [];
+}
 
 function sendRequest() {
+		reset();
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', async function() {
 
