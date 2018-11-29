@@ -15,7 +15,8 @@
 // Define some variables used to remember state.
 var playlistId, nextPageToken, prevPageToken;
 var apiKey='AIzaSyBF_Fv2DtGxLF_4rw_kUeMjwvPtekxau_M';
-var playlistId='UUHziILhb2V5ahNIMSmaOAbQ';
+
+var playlistId='UUHziILhb2V5ahNIMSmaOAbQ'; //Loustic sessions 'Uploads' playlist
 
 var videosDetails = {};
 videosDetails.results = [];
@@ -239,6 +240,7 @@ for (var key in aggObject) {
 		var arr = [key,aggObject[key].videoCount];
         series.push(arr);
 		}
+}
 }
 
 </script> 
