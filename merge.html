@@ -290,9 +290,9 @@ for (var key in aggObject) {
                 if (!data) { return ; }
                 // tooltip content
                 return ['<div class="hoverinfo">',
-                    'Artits from <strong>', geo.properties.name, '</strong>',
+                    '<strong>', geo.properties.name, '</strong>',
                     '<br><br>Sessions: <strong>', data.numberOfThings, '</strong>',
-					'<br>views: <strong>', geo.id , '</strong>',
+					'<br>Views: <strong>', aggObject[geo.id].viewCount , '</strong>',
                     '</div>'].join(''); 
             }
         }
