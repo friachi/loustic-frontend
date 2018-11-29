@@ -236,7 +236,7 @@ function aggregateVideosPerCountry(){
 //get videos by RecordedIn country
 
 
-//takes an aggregation object then outputs a 'series' conforming to worldmap for d3, then draws the map
+//takes an aggregation object then outputs a 'series' conforming to worldmap for d3 based on videocount, then draws the map
 function renderMap(aggObject)
 {
 series = [];
@@ -290,8 +290,9 @@ for (var key in aggObject) {
                 if (!data) { return ; }
                 // tooltip content
                 return ['<div class="hoverinfo">',
-                    '<strong>', geo.properties.name, '</strong>',
-                    '<br>Sessions: <strong>', data.numberOfThings, '</strong>',
+                    'Artits from <strong>', geo.properties.name, '</strong>',
+                    '<br>#Sessions: <strong>', data.numberOfThings, '</strong>',
+					'<br>#Views: <strong>', data, '</strong>',
                     '</div>'].join('');
             }
         }
