@@ -22,6 +22,7 @@ videosDetails.results = [];
 var aggrByArtistsFrom = {};
 var aggrByRecordedIn = {};
 var notTaggedYet = [];
+var series = [];
 // After the API loads, call a function to get the uploads playlist ID.
 
 
@@ -29,7 +30,7 @@ function sendRequest() {
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', async function() {
 
-		console.log("Sending Request for all uploaded videos on Loustic Sessions...");
+		console.log("Requesting all uploaded videos on Loustic Sessions...");
 
 		//read first page of video ids
 		const videoList = await requestVideoPlaylist(playlistId);
@@ -51,6 +52,8 @@ function sendRequest() {
 		console.log('Aggregating data based on tags...');
 		aggregateVideosPerCountry();
 		console.log('Aggregation done');
+		
+		prepareDatapointsForMap(aggrByArtistsFrom);
 		
         });      
         
@@ -224,6 +227,19 @@ function aggregateVideosPerCountry(){
 
 //get videos by ArtistsFrom country
 //get videos by RecordedIn country
+
+
+//takes an aggregation object then outputs a 'series' conforming to worldmap for d3
+function prepareDatapointsForMap(aggObject)
+{
+series = [];
+
+for (var key in aggObject) {
+    if (aggObject.hasOwnProperty(key)) {
+		var arr = [key,aggObject[key].videoCount];
+        series.push(arr);
+		}
+}
 
 </script> 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
