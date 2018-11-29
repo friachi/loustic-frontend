@@ -291,9 +291,9 @@ for (var key in aggObject) {
                 // tooltip content
                 return ['<div class="hoverinfo">',
                     'Artits from <strong>', geo.properties.name, '</strong>',
-                    '<br>#Sessions: <strong>', data.numberOfThings, '</strong>',
-					'<br>#Views: <strong>', data, '</strong>',
-                    '</div>'].join('');
+                    '<br><br>Sessions: <strong>', data.numberOfThings, '</strong>',
+					'<br>views: <strong>', geo.id , '</strong>',
+                    '</div>'].join(''); 
             }
         }
     });
