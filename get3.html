@@ -45,7 +45,6 @@ function sendRequest() {
 		//aggregate videos count. It generates 2 objects: aggrByArtistsFrom & aggrByRecordedIn with the below structure:
 		//{ country : { videoCount,viewCount,likeCount,dislikeCount,favoriteCount,commentCount,videoIds:[strings]} }
 		aggregateVideosPerCountry();
-		console.log(aggrByArtistsFrom);
 		console.log('done');
 		
         });      
@@ -206,13 +205,13 @@ function aggregateVideosPerCountry(){
 			});
 		}
 	});
-	console.log("Videos Aggregated by 'ArtistsFrom:' tag:");
+	console.log("Videos Aggregated by 'ArtistsFrom:' tag (stored in aggrByArtistsFrom):");
 	console.log(aggrByArtistsFrom);
 	
-	console.log("Videos Aggregated by 'RecordedIn:' tag:");
+	console.log("Videos Aggregated by 'RecordedIn:' tag (stored in aggrByRecordedIn):");
 	console.log(aggrByRecordedIn);
 	
-	console.log("Videos having missing or no required tags on video:");
+	console.log("Videos having missing or no required tags on video (stored in notTaggedYet):");
 	console.log(notTaggedYet);
 }
 
