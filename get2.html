@@ -63,14 +63,16 @@ function requestVideoPlaylist(playlistId, pageToken) {
 		}
       });
       
-     //Make a request of max 50 video to youtube to get their Details
-     getVideosDetails(chunkOfVideoIds); 
+     
 	  
      //read next page if any 
       if(nextPageToken) {
-	console.log("Reading next page: "+nextPageToken);		  
+		console.log("Reading next page: "+nextPageToken);		  
       	nextPage(); 
       }
+	  
+	  //Make a request of max 50 video to youtube to get their Details
+     return getVideosDetails(chunkOfVideoIds); 
 
     } 
     else {
