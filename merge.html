@@ -306,14 +306,17 @@ for (var key in aggObject) {
         },
 		done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-			
-                var videosList = aggObject[geography.id].videoIds.join(",");
-				playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
-				window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');
-				
+				if(aggObject[geography.id]){
+					var videosList = aggObject[geography.id].videoIds.join(",");
+					playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
+					window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');
+				}
             });
 			
-			$('#nontagged-button').show();
+			if(notTaggedYet.length > 0)
+			{ 
+				$('#nontagged-button').show();
+			}
 			
         }
     });
