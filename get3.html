@@ -118,15 +118,17 @@ function aggregateVideosPerCountry(){
 //var aggrByRecordedIn = {};
 	
 	$.each(videosDetails.results, function(index, item) {
-	var tags = item.snippet.tags;
-		$.each(tags, function(index, tag) {
-		
-		//check if video has 'ArtistsFrom:' tag, if yes, add it to aggregate
-		if(tag.indexOf('ArtistsFrom:') !== -1) {
-		console.log(item.snippet.title);
-		}
+		var tags = item.snippet.tags;
+		if(tags){
+			$.each(tags, function(index, tag) {
 			
-		});
+			//check if video has 'ArtistsFrom:' tag, if yes, add it to aggregate
+			if(tag.indexOf('ArtistsFrom:') !== -1) {
+			console.log(item.snippet.title);
+			}
+				
+			});
+		}
 	});
 }
 
