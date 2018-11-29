@@ -111,10 +111,12 @@ function getVideosDetails(viedoIds) {
 }
 
 function aggregateVideosPerCountry(){
-	console.log("array length: " + videosDetails.results.length);
-	//$.each(videosDetails.results, function(index, item) { 
+//ArtistsFrom:
+//RecordedIn:	
+	$.each(videosDetails.results, function(index, item) {
+	console.log(item[index].snippet.tags);
 	
-	//});
+	});
 }
 
 </script> 
