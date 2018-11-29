@@ -42,7 +42,7 @@ function sendRequest() {
 		}
 		
 		aggregateVideosPerCountry();
-		console.log("done");
+		
 		
         });      
         
@@ -128,8 +128,11 @@ function aggregateVideosPerCountry(){
 			if(tag.indexOf('ArtistsFrom:') !== -1) {
 				var arr = tag.split(':');
 				if(arr[1]) {
-					console.log(arr[1]);
+				
+					aggrByArtistsFrom[arr[1]] += 1;
+					
 				}
+				else console.log("No country provided on 'ArtistsFrom:', or no colon . VideoId: " + item.id );
 			}
 				
 			});
