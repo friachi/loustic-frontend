@@ -355,19 +355,15 @@ for (var key in aggObject) {
 //open playlist of non taged videos
 function openNonTagedList()
 {
-	var videosList;
-	var playListUrl;
-	
 	
 	if(notTaggedYet.length > 50){
 	//get only first 50
-		var temp  = notTaggedYet.slice(0,50).join(",");
-		videosList = temp;
+		var videosList  = notTaggedYet.slice(0,50).join(",");
 	}
 	else {
-		videosList = notTaggedYet.join(",");
+		var videosList = notTaggedYet.join(",");
 	}
-	playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
+	var playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
 	window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');  
 
 
