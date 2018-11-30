@@ -361,7 +361,8 @@ function openNonTagedList()
 	
 	if(notTaggedYet.length > 50){
 	//get only first 50
-		videosList = notTaggedYet.slice(0,50).join(",");
+		var temp  = notTaggedYet.slice(0,50).join(",");
+		videosList = temp;
 	}
 	else {
 		videosList = notTaggedYet.join(",");
