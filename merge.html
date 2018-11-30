@@ -244,7 +244,7 @@ function aggregateVideosPerCountry(){
 		}
 		else {
 		//no tags at all
-		notTaggedYet.push("https://www.youtube.com/watch?v=" + video.id);
+		notTaggedYet.push(video.id);
 		}
 	});
 	console.log("Videos Aggregated by 'ArtistsFrom:' tag (aggrByArtistsFrom):");
@@ -355,15 +355,18 @@ for (var key in aggObject) {
 //open playlist of non taged videos
 function openNonTagedList()
 {
+	var videosList;
+	var playListUrl;
 	
 	if(notTaggedYet.length > 50){
 	//get only first 50
-		var videosList  = notTaggedYet.slice(0,50).join(",");
+		videosList  = notTaggedYet.slice(0,50).join(",");
 	}
 	else {
-		var videosList = notTaggedYet.join(",");
+		videosList = notTaggedYet.join(",");
 	}
-	var playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
+	
+	playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
 	window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');  
 
 
