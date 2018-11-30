@@ -319,7 +319,7 @@ for (var key in aggObject) {
                 // tooltip content
                 return ['<div class="hoverinfo">',
                     '<strong>', geo.properties.name, '</strong>',
-                    '<br><br>Sessions: <strong>', data.numberOfThings, '</strong>',
+                    '<br><br>Sessions: <strong>', aggObject[geo.id].videoCount, '</strong>',
 					'<br>Views: <strong>', aggObject[geo.id].viewCount , '</strong>',
 					'<br>Likes: <strong>', aggObject[geo.id].likeCount , '</strong>',
 					'<br>Dislikes: <strong>', aggObject[geo.id].dislikeCount , '</strong>',
