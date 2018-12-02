@@ -12,6 +12,9 @@
 body {
     font-family: 'Poppins';font-size: 16px;
 }
+button {
+    font-family: 'Poppins';font-size: 18px;
+}
 </style>
  </head>
   <body>
@@ -334,7 +337,7 @@ for (var key in aggObject) {
 				if(aggObject[geography.id]){
 					var videosList = aggObject[geography.id].videoIds.join(",");
 					playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
-					window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');
+					window.open(playListUrl, '_blank', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
 				}
             });
 			
@@ -368,7 +371,7 @@ function openNonTagedList()
 	}
 	
 	playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
-	window.open(playListUrl, '_blank', 'height=600,width=520,scrollbars=yes,status=no,menubar=no');  
+	window.open(playListUrl, '_blank', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');  
 
 
 }
