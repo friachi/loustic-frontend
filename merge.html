@@ -28,7 +28,7 @@
       <button id="request-button" onclick="sendRequest()">Map videos</button>
 	  <button id="nontagged-button" onclick="openNonTagedList()" style="display: none;">Show non tagged videos</button>
     </div>
-	<div id="containerMap" style="position: relative; width: 80%; height: 60%;"><p id="message">Fahed</p></div>	
+	<div id="containerMap" style="position: relative; width: 80%; height: 60%;"><p id="message"></p></div>	
          
   <script>
   
@@ -61,7 +61,11 @@ function reset()
 
 function sendRequest() {
 		reset();
-	$("#message" ).text("Loading, Please wait...");
+		$(document).ready(function(){
+    			$("#message" ).text("Loading, Please wait...");
+		    });
+		});
+	
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', async function() {
 
