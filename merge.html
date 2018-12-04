@@ -61,9 +61,11 @@ function reset()
 
 function sendRequest() {
 		reset();
-		$("#containerMap").append('<p>Loading, please wait...</p>');  
-		
+		$("#containerMap").append('<p style="text-align: center;vertical-align: middle;line-height: 90px;">Loading, please wait...</p>');  
 	
+
+	
+	 
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', async function() {
 
