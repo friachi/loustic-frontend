@@ -28,7 +28,7 @@
       <button id="request-button" onclick="sendRequest()">Map videos</button>
 	  <button id="nontagged-button" onclick="openNonTagedList()" style="display: none;">Show non tagged videos</button>
     </div>
-	<div id="containerMap" style="position: relative; width: 80%; height: 60%;"></div>	
+	<div id="containerMap" style="position: relative; width: 80%; height: 60%;"><p id="message"></p></div>	
          
   <script>
   
@@ -61,7 +61,7 @@ function reset()
 
 function sendRequest() {
 		reset();
-	$( "containerMap" ).html('Loading, Please wait...');
+	$("#message" ).text("Loading, Please wait...");
         gapi.client.setApiKey(apiKey);
         gapi.client.load('youtube', 'v3', async function() {
 
@@ -267,6 +267,7 @@ function aggregateVideosPerCountry(){
 //takes an aggregation object then outputs a 'series' conforming to worldmap for d3 based on videocount, then draws the map
 function renderMap(aggObject)
 {
+$("#message" ).text("");
 series = [];
 
 for (var key in aggObject) {
