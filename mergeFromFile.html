@@ -45,15 +45,21 @@ var series = [];
 // After the API loads, call a function to get the uploads playlist ID.
 
 $(document).ready(async function() {
+
+	//read data from server-stored json files
 	await $.getJSON('aggrByArtistsFrom.json', function(data) {
-                  aggrByArtistsFrom = JSON.parse(data);
+                  aggrByArtistsFrom = data;
                });
 	await $.getJSON('aggrByRecordedIn.json', function(data) {
-                  aggrByRecordedIn = JSON.parse(data);
+                  aggrByRecordedIn = data;
                });
 	await $.getJSON('notTaggedYet.json', function(data) {
-                  notTaggedYet = JSON.parse(data);
+                  notTaggedYet = data;
                });
+	//show map on load		   
+	refresh();
+
+	//refresh map when radio buttons change
     $('input:radio[name=mapBy]').change(function() {
        refresh();
     });
