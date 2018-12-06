@@ -44,16 +44,17 @@ var notTaggedYet = [];
 var series = [];
 // After the API loads, call a function to get the uploads playlist ID.
 
-$(document).ready(function() {
+$(document).ready(async function() {
 
 	//read data from server-stored json files
-	$.getJSON('aggrByArtistsFrom.json', function(data) {
+	const a = await $.getJSON('aggrByArtistsFrom.json', function(data) {
                   aggrByArtistsFrom = data;
                });
-	$.getJSON('aggrByRecordedIn.json', function(data) {
+	
+	const b = await $.getJSON('aggrByRecordedIn.json', function(data) {
                   aggrByRecordedIn = data;
                });
-	$.getJSON('notTaggedYet.json', function(data) {
+	const c = await $.getJSON('notTaggedYet.json', function(data) {
                   notTaggedYet = data;
                });
 	//show map on load		   
