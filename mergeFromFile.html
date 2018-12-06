@@ -53,9 +53,11 @@ $(document).ready(function() {
 
 	//refresh map when radio buttons change
     $('input:radio[name=mapBy]').change(function() {
+		reset();
        refresh();
     });
     $('input:radio[name=colorBy]').change(function() {
+		reset();
        refresh();
     });
 });	  
@@ -89,7 +91,6 @@ function reset()
 }
 
 function refresh() {
-		reset();
 		$("#containerMap").append('<p style="text-align: center;vertical-align: middle;line-height: 90px;">Loading, please wait...</p>');  
 			
 		if (document.getElementById('r1_ArtistsFrom').checked) {
