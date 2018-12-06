@@ -14,7 +14,6 @@
 	 
  </head>
   <body>
-	<img src="loustic_logo.png" width="181px" height="203px"><h1>Loustic World Map</h1>
 	<div id="rates" style=" margin-right: 30px;">
 	  <input type="radio" id="r1_ArtistsFrom" name="mapBy" value="ArtistsFrom" checked="checked"> By Artists origins</input>
 	  <input type="radio" id="r2_RecordedIn" name="mapBy" value="RecordedIn"> By where it was recorded</input>
@@ -83,9 +82,7 @@ function refresh() {
 		if (document.getElementById('r1_ArtistsFrom').checked) {
 			renderMap(aggrByArtistsFrom);
 		}else renderMap(aggrByRecordedIn);
-		
-		
-        });      
+   
         
 }
 
