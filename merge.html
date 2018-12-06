@@ -24,14 +24,22 @@
 	  <input type="radio" id="r4_viewCount" name="colorBy" value="colorViews"> Color by View Count</input>
 	</div>
 	<br>
-	<div id="buttons">
+	<!-- div id="buttons">
       <button id="request-button" onclick="sendRequest()">Map videos</button>
 	  <button id="nontagged-button" onclick="openNonTagedList()" style="display: none;">Show non tagged videos</button>
-    </div>
+    </div -->
 	<div id="containerMap" style="position: relative; width: 80%; height: 60%;"></div>	
          
   <script>
   
+$(document).ready(function() {
+    $('input:radio[name=mapBy]').change(function() {
+       sendRequest();
+    });
+    $('input:radio[name=colorBy]').change(function() {
+       sendRequest();
+    });
+});	  
 
 // Define some variables used to remember state.
 var nextPageToken, prevPageToken;
