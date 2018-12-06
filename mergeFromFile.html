@@ -48,9 +48,6 @@ $(document).ready(function() {
 
 	getFile();
 
-	//show map on load		   
-	refresh();
-
 	//refresh map when radio buttons change
     $('input:radio[name=mapBy]').change(function() {
 		reset();
@@ -74,7 +71,8 @@ async function getFile(){
 	const c = await $.getJSON('notTaggedYet.json', function(data) {
                   notTaggedYet = data;
                });
-
+//show map on load		   
+	refresh();
 }
 
 function reset()
