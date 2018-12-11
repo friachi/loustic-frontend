@@ -57,7 +57,7 @@ var series = [];
 
 $(document).ready(function() {
 
-	getFile();
+	getData();
 
 	//refresh map when radio buttons change
     $('input:radio[name=mapBy]').change(function() {
@@ -70,18 +70,36 @@ $(document).ready(function() {
     });
 });	  
 
-async function getFile(){
+async function getData(){
 	//read data from server-stored json files
-	const a = await $.getJSON('aggrByArtistsFrom.json', function(data) {
-                  aggrByArtistsFrom = data;
-               });
 	
-	const b = await $.getJSON('aggrByRecordedIn.json', function(data) {
-                  aggrByRecordedIn = data;
-               });
-	const c = await $.getJSON('notTaggedYet.json', function(data) {
-                  notTaggedYet = data;
-               });
+	const a = await $.ajax({ 
+	   type: "GET",
+	   dataType: "json",
+	   url: "http://52.47.42.144/lousticapi/aggregates/by-artists-roots",
+	   success: function(data){        
+		 aggrByArtistsFrom = data;
+	   }
+	});
+	
+	const b = await $.ajax({ 
+	   type: "GET",
+	   dataType: "json",
+	   url: "http://52.47.42.144/lousticapi/aggregates/by-recorded-in",
+	   success: function(data){        
+		 aggrByRecordedIn = data;
+	   }
+	});
+	
+	const c = await $.ajax({ 
+	   type: "GET",
+	   dataType: "json",
+	   url: "http://52.47.42.144/lousticapi/aggregates/not-tagged-yet",
+	   success: function(data){        
+		 notTaggedYet = data;
+	   }
+	});
+	
 //show map on load		   
 	refresh();
 }
@@ -109,14 +127,14 @@ function renderMap(aggObject)
 	$( "#containerMap" ).empty();
 series = [];
 
-for (var key in aggObject) {
-    if (aggObject.hasOwnProperty(key)) {
+for (var key in aggObject.aggregate) {
+    if (aggObject.aggregate.hasOwnProperty(key)) {
 	    
 		if (document.getElementById('r3_sessionCount').checked) {
-	    	var arr = [key,aggObject[key].videoCount];
+	    	var arr = [key,aggObject.aggregate[key].videoCount];
         }
 	    else{
-			var arr = [key,aggObject[key].viewCount];
+			var arr = [key,aggObject.aggregate[key].viewCount];
 	    }
 	    
 		series.push(arr);
@@ -134,7 +152,7 @@ for (var key in aggObject) {
     // color can be whatever you wish
     var paletteScale = d3.scale.linear()
             .domain([minValue,maxValue])
-            .range(["#ffcccc","#e60000"]); // blue color
+            .range(["#ffcccc","#C20430"]); // red color
     // fill dataset in appropriate format
     series.forEach(function(item){ //
         // item example value ["USA", 70]
@@ -166,19 +184,19 @@ for (var key in aggObject) {
                 // tooltip content
                 return ['<div class="hoverinfo">',
                     '<strong>', geo.properties.name, '</strong>',
-                    '<br><br>Videos: <strong>', aggObject[geo.id].videoCount, '</strong>',
-					'<br>Views: <strong>', aggObject[geo.id].viewCount , '</strong>',
-					'<br>Likes: <strong>', aggObject[geo.id].likeCount , '</strong>',
-					'<br>Dislikes: <strong>', aggObject[geo.id].dislikeCount , '</strong>',
-					'<br>Favorites: <strong>', aggObject[geo.id].favoriteCount , '</strong>',
-					'<br>Comments: <strong>', aggObject[geo.id].commentCount , '</strong>',
+                    '<br><br>Videos: <strong>', aggObject.aggregate[geo.id].videoCount, '</strong>',
+					'<br>Views: <strong>', aggObject.aggregate[geo.id].viewCount , '</strong>',
+					'<br>Likes: <strong>', aggObject.aggregate[geo.id].likeCount , '</strong>',
+					'<br>Dislikes: <strong>', aggObject.aggregate[geo.id].dislikeCount , '</strong>',
+					'<br>Favorites: <strong>', aggObject.aggregate[geo.id].favoriteCount , '</strong>',
+					'<br>Comments: <strong>', aggObject.aggregate[geo.id].commentCount , '</strong>',
                     '</div>'].join(''); 
             }
         },
 		done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-				if(aggObject[geography.id]){
-					var videosList = aggObject[geography.id].videoIds.join(",");
+				if(aggObject.aggregate[geography.id]){
+					var videosList = aggObject.aggregate[geography.id].videoIds.join(",");
 					playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
 					window.open(playListUrl, '_blank', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
 				}
