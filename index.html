@@ -27,7 +27,8 @@
         var q = $('#query').val();
         var request = gapi.client.youtube.search.list({
                 q: q,
-                part: 'snippet', 
+                part: 'snippet',
+                channelId: 'UCHziILhb2V5ahNIMSmaOAbQ',
                 maxResults: 10
         });
         request.execute(function(response)  {                                                                                    
