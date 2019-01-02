@@ -6,6 +6,15 @@
   <meta name="description" content="Try Multitrack mixing of a Loustic session">
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="css/Mix.css">
+  <style>
+  video::-webkit-media-controls-volume-slider {
+display:none;
+}
+
+video::-webkit-media-controls-mute-button {
+display:none;
+}
+  </style>
 </head>
 <body>
 
@@ -14,7 +23,7 @@
   </header>
   
   <div style="position: relative;">
-	  <video id="myVideo" width="650" height="420">
+	  <video id="myVideo" width="650" height="420" controls="controls" controlsList="nodownload">
 		  <source src="video/quiet-island/QuietIsland.mp4" type="video/mp4">
 		  Your browser does not support HTML5 video.
 	</video>
@@ -122,12 +131,24 @@ function sync() {
       mediaVideo.pause();
       var pos = App.mix.get("minTime");
       mediaVideo.currentTime = pos;
-      App.mix.set("position",pos);App.mix.pause();
+      App.mix.set("position",pos);
+	  App.mix.pause();
   
 	$("#play-btn").addClass("paused");
  }
  );
  
+ 
+//handle play/stop on video controls 
+ $(mediaVideo).on('play', function() {
+  //Actions when video play selected
+  App.mix.play();
+});
+ 
+ $(mediaVideo).on('pause', function() {
+  //Actions when video pause selected
+  App.mix.pause();
+});
 
  //PLAY  / PAUSE
   $('#play-btn').click(function () {
