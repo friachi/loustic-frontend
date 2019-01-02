@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+ <head>
+ <title>Search</title>
+  </head>
+  <body>
+    <div id="buttons">
+     <a href="world.html">map</a>
+    <label> <input id="query" type="text"/><button id="search-button" onclick="keyWordsearch()">Search</button></label>   
+
+
+
+    <div id="container">
+      <h1>Search Results</h1>
+      <ul id="results"></ul>
+    </div>           
+
+    <script>
+     function keyWordsearch(){
+        gapi.client.setApiKey("AIzaSyBF_Fv2DtGxLF_4rw_kUeMjwvPtekxau_M");
+        gapi.client.load('youtube', 'v3', function() {
+                makeRequest();
+        });
+          }
+
+      function makeRequest() {
+        var q = $('#query').val();
+        var request = gapi.client.youtube.search.list({
+                q: q,
+                part: 'snippet',
+                channelId: 'UCHziILhb2V5ahNIMSmaOAbQ',
+                maxResults: 10
+        });
+        request.execute(function(response)  {                                                                                    
+                $('#results').empty()
+                var srchItems = response.result.items;                      
+                $.each(srchItems, function(index, item) {
+                vidTitle = item.snippet.title;  
+
+                $('#results').append('<pre>' + vidTitle + '</pre>');                      
+        })  
+    })  
+}
+    </script> 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady">  </script>
+    </body>
+</html>
