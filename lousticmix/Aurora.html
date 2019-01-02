@@ -23,7 +23,7 @@ display:none;
   </header>
   
   <div style="position: relative;">
-	  <video id="myVideo" width="650" height="420" controls="controls" controlsList="nodownload">
+	  <video id="myVideo" width="650" height="450" controls="controls" controlsList="nodownload">
 		  <source src="video/aurora/Aurora.mp4" type="video/mp4">
 		  Your browser does not support HTML5 video.
 	</video>
@@ -37,21 +37,21 @@ display:none;
   <div id="mixer">
     <div id="meters">
       <div class="vu">
-        <div class="mask">
+        <div class="mask" title="Left channel output">
           <div class="needle left" style="-webkit-transform: rotateZ(0deg);"></div>
         </div>
-        <p class="vu-label">L</p>
+        <p class="vu-label" title="Left channel output">L</p>
       </div>
       <div class="vu">
-        <div class="mask">
+        <div class="mask" title="Right channel output">
           <div class="needle right" style="-webkit-transform: rotateZ(0deg);"></div>
         </div>
-        <p class="vu-label">R</p>
+        <p class="vu-label" title="Right channel output">R</p>
       </div>
     </div>
     <div id="master">
       <div class="track">
-        <div class="fader" style="top: 209px;"></div>
+        <div class="fader" style="top: 209px;" title="Control the global volume of whole mix"></div>
       </div>
       <p class="label">Master</p>
     </div>
@@ -62,17 +62,17 @@ display:none;
 
   <script type="text/template" id="tmpl-track">
     <div>
-      <button class="btn mute {{muted}}">M</button>
-      <button class="btn solo {{soloed}}">S</button>
+      <button class="btn mute {{muted}}" title="Mute this track">M</button>
+      <button class="btn solo {{soloed}}" title="Solo: listen only to this track">S</button>
       <button class="btn afl {{afl}}">PFL</button>
       <div class="pan">
-        <div class="panner" style="-webkit-transform: rotate({{pan}}deg); -moz-transform: rotate({{pan}}deg);">
+        <div class="panner" style="-webkit-transform: rotate({{pan}}deg); -moz-transform: rotate({{pan}}deg);" title="Pan left or right">
           <div class="pan-indicator"></div>
         </div>
       </div>
       <div class="track">
         <canvas class="meter" width="8" height="280"></canvas>
-        <div class="fader" style="top: {{gain}}px;"></div>
+        <div class="fader" style="top: {{gain}}px;" title="Control the volume of this track"></div>
       </div>
       <p class="label">{{name}}</p>
     </div>
@@ -81,10 +81,10 @@ display:none;
   <script type="text/template" id="tmpl-controls">
     <canvas class="clock" width="360" height="120"></canvas>
     <div class="buttons">
-      <button class="btn-cntrl start"></button>
-      <button class="btn-cntrl rw"></button>
-      <button class="btn-cntrl play {{playing}}"></button>
-      <button class="btn-cntrl ff"></button> 
+      <button class="btn-cntrl start" title="Jump to the begining of the mix"></button>
+      <button class="btn-cntrl rw" title="Rewind by 10 sec"></button>
+      <button class="btn-cntrl play {{playing}}" title="Play/pause"></button>
+      <button class="btn-cntrl ff" title="Fast forward by 10 sec"></button> 
     </div>
   </script>
   <!--br>
