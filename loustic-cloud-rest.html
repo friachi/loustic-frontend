@@ -197,7 +197,7 @@
 				shuffleArray(d.aggregate.videoIds); //so each click returns differernt results
 				var videosList = d.aggregate.videoIds.slice(0,50).join(",");
 				
-					playListUrl = "https://www.youtube.com/embed?playlist="+videosList;
+					playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
 
 					window.open(playListUrl, 'iframe_playlist', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
 					$( "#tell" ).text("Playlist for '"+d.text+"' style with "+d.aggregate.videoIds.length+" videos. Click below on top-left icon to see all videos");
