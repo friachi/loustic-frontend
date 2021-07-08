@@ -120,7 +120,7 @@ async function getData(){
 	const a = await $.ajax({ 
 	   type: "GET",
 	   dataType: "json",
-	   url: "https://loustic.tk/api/aggregates/by-artists-roots",
+	   url: "https://52.47.42.144/api/aggregates/by-artists-roots",
 	   success: function(data){        
 		 aggrByArtistsFrom = data;
 	   }
@@ -129,7 +129,7 @@ async function getData(){
 	const b = await $.ajax({ 
 	   type: "GET",
 	   dataType: "json",
-	   url: "https://loustic.tk/api/aggregates/by-recorded-in",
+	   url: "https://52.47.42.144/api/aggregates/by-recorded-in",
 	   success: function(data){        
 		 aggrByRecordedIn = data;
 	   }
@@ -138,7 +138,7 @@ async function getData(){
 	const c = await $.ajax({ 
 	   type: "GET",
 	   dataType: "json",
-	   url: "https://loustic.tk/api/aggregates/not-tagged-yet",
+	   url: "https://52.47.42.144/api/aggregates/not-tagged-yet",
 	   success: function(data){        
 		 notTaggedYet = data;
 	   }
