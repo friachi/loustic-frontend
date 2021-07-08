@@ -158,7 +158,7 @@ function search(pattern)
 	$.ajax({ 
 	   type: "GET",
 	   dataType: "json",
-	   url: "https://loustic.tk/api/videos?search="+searchPattern+"&limit="+limit,
+	   url: "http://52.47.42.144/api/videos?search="+searchPattern+"&limit="+limit,
 	   success: function(response){       
 		
 		if(response.totalFound == 0)
